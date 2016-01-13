@@ -3,7 +3,7 @@ import random
 import time
 
 GAME_TIME = 10000               # game duration
-DELAY = 10                      # terminal update frequency
+DELAY = 20                      # terminal update frequency
 WIDTH = 400.                    # display width
 HEIGHT = 400.                   # display height
 
@@ -32,13 +32,13 @@ class MSweeper:
     def __init__(self, nnet):
         # minesweeper setup
         self.Brain = nnet
-        self.Rotation = random.random()
+        self.Rotation = 0.0
         self.LTrack = 0.16
         self.RTrack = 0.16
         self.Fitness = 0
         self.ClosestMine = 0
         self.Speed = 0.0
-        self.Position = [random.randrange(WIDTH), random.randrange(HEIGHT)]
+        self.Position = [0.0, 0.0]
         self.Vision = [0.0, 0.0]
         self.reset()
 
@@ -126,11 +126,13 @@ class MSweeper:
 class Mine:
     # Constructor
     def __init__(self):
-        self.Position = [random.randrange(WIDTH), random.randrange(HEIGHT)]
+        self.Position = [0.0, 0.0]
+        self.reset()
 
     # every time there is a collision with a tank, reposition the mine
-    def reposition(self):
-        self.Position = [random.randrange(WIDTH), random.randrange(HEIGHT)]
+    def reset(self):
+        self.Position[0] = random.randrange(WIDTH)
+        self.Position[1] = random.randrange(HEIGHT)
 
 # sort tanks by their fitness
 def sortTanks(tanks):
@@ -171,7 +173,7 @@ def gameLoop():
             tank.update(mines)
             # check collision with a mine
             if tank.checkCollision(mines, 2) != -1:
-                mines[tank.ClosestMine].reposition()
+                mines[tank.ClosestMine].reset()
                 tank.Fitness += 1
         # update the terminal screen given the delay frequency
         if i % DELAY == 0:
