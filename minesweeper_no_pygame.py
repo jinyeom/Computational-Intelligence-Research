@@ -4,8 +4,8 @@ import time
 
 GAME_TIME = 10000               # game duration
 DELAY = 10                      # terminal update frequency
-D_WIDTH = 400.                  # display width
-D_HEIGHT = 400.                 # display height
+WIDTH = 400.                    # display width
+HEIGHT = 400.                   # display height
 
 # neural network constants
 N_INS = 4
@@ -38,32 +38,31 @@ class MSweeper:
         self.Fitness = 0
         self.ClosestMine = 0
         self.Speed = 0.0
-        self.XCoord = random.randrange(D_WIDTH)
-        self.YCoord = random.randrange(D_HEIGHT)
-        self.XLookAt = 0.0
-        self.YLookAt = 0.0
+        self.Position = [random.randrange(WIDTH), random.randrange(HEIGHT)]
+        self.Vision = [0.0, 0.0]
+        self.reset()
 
     # Resets the sweeper's position, fitness and rotation
     def reset(self):
-        self.XCoord = random.randrange(D_WIDTH)
-        self.YCoord = random.randrange(D_HEIGHT)
+        self.Position = [random.randrange(WIDTH), random.randrange(HEIGHT)]
         self.Fitness = 0
         self.Rotation = random.random()
 
     # update the sweeper's status
     def update(self, mines):
         # get vector to closest mine
-        closestMVec = self.getClosestMine(mines)
-        normalVec = closestMVec.vecNormalize()
+        closest = self.getClosestMine(mines)
+        dist = math.sqrt(closest[0] * closest[0] + closest[1] * closest[1])
+        normalVec = [closest[0]/dist, closest[1]/dist]
 
         # inputs for neural network
         inputs = []
 
-        inputs.append(normalVec.x)
-        inputs.append(normalVec.y)
+        inputs.append(normalVec[0])
+        inputs.append(normalVec[1])
 
-        inputs.append(self.XLookAt)
-        inputs.append(self.YLookAt)
+        inputs.append(self.Vision[0])
+        inputs.append(self.Vision[1])
 
         # outputs from neural network
         outputs = self.Brain.update(inputs)
@@ -81,45 +80,44 @@ class MSweeper:
         self.Rotation += rotation
         self.Speed = self.LTrack + self.RTrack
 
-        self.XLookAt = -math.sin(self.Rotation)
-        self.YLookAt = math.cos(self.Rotation)
+        self.Vision[0] = -math.sin(self.Rotation)
+        self.Vision[1] = math.cos(self.Rotation)
 
-        self.XCoord += self.XLookAt * self.Speed
-        self.YCoord += self.YLookAt * self.Speed
+        self.Position[0] += self.Vision[0] * self.Speed
+        self.Position[1] += self.Vision[1] * self.Speed
 
         # wrap around window limits
-        if self.XCoord > D_WIDTH:
-            self.XCoord = 0.0
-        if self.XCoord < 0.0:
-            self.XCoord = D_WIDTH
-        if self.YCoord > D_HEIGHT:
-            self.YCoord = 0.0
-        if self.YCoord < 0.0:
-            self.YCoord = D_HEIGHT
+        if self.Position[0] > WIDTH:
+            self.Position[0] = 0.0
+        if self.Position[0] < 0.0:
+            self.Position[0] = WIDTH
+        if self.Position[1] > HEIGHT:
+            self.Position[1] = 0.0
+        if self.Position[1] < 0.0:
+            self.Position[1] = HEIGHT
 
     # get the closest mine
     def getClosestMine(self, mines):
         closest = 99999.0
-        closestVec = Vector2D(0.0, 0.0)
-        msVec = Vector2D(self.XCoord, self.YCoord)
+        closestVec = [0.0, 0.0]
 
         # search for the closest mine
         for i in range(len(mines)):
-            mVec = Vector2D(mines[i].XCoord, mines[i].YCoord)
-            diffVec = msVec.vecDiff(mVec)
-            dist = diffVec.vecLength()
+            diff = [self.Position[0] - mines[i].Position[0],
+                    self.Position[1] - mines[i].Position[1]]
+            dist = math.sqrt(diff[0] * diff[0] + diff[1] * diff[1])
             if dist < closest:
                 closest = dist
-                closestVec = diffVec
+                closestVec = diff
                 self.ClosestMine = i
         return closestVec
 
     # check collision with the closest mine
     def checkCollision(self, mines, size):
-        msVec = Vector2D(self.XCoord, self.YCoord)
         closestMine = mines[self.ClosestMine]
-        mVec = Vector2D(closestMine.XCoord, closestMine.YCoord)
-        dist = msVec.vecDiff(mVec).vecLength()
+        diff = [self.Position[0] - closestMine.Position[0],
+                self.Position[1] - closestMine.Position[1]]
+        dist = math.sqrt(diff[0] * diff[0] + diff[1] * diff[1])
         if dist < (size + 5.0):
             return self.ClosestMine
         return -1
@@ -128,37 +126,11 @@ class MSweeper:
 class Mine:
     # Constructor
     def __init__(self):
-        self.XCoord = random.randrange(D_WIDTH)
-        self.YCoord = random.randrange(D_HEIGHT)
+        self.Position = [random.randrange(WIDTH), random.randrange(HEIGHT)]
 
     # every time there is a collision with a tank, reposition the mine
     def reposition(self):
-        self.XCoord = random.randrange(D_WIDTH)
-        self.YCoord = random.randrange(D_HEIGHT)
-
-# define a 2D vector
-class Vector2D:
-    # Constructor
-    def __init__(self, x, y):
-        self.x = x
-        self.y = y
-
-    # distance from this vector and another
-    def vecLength(self):
-        return math.sqrt(self.x * self.x + self.y * self.y)
-
-    # vector difference of this vector and another
-    def vecDiff(self, vec):
-        vDiff = Vector2D(self.x, self.y)
-        vDiff.x -= vec.x
-        vDiff.y -= vec.y
-        return vDiff
-
-    def vecNormalize(self):
-        normalized = Vector2D(self.x, self.y)
-        normalized.x = self.x / self.vecLength()
-        normalized.y = self.y / self.vecLength()
-        return normalized
+        self.Position = [random.randrange(WIDTH), random.randrange(HEIGHT)]
 
 # sort tanks by their fitness
 def sortTanks(tanks):
@@ -178,8 +150,8 @@ def updateTerminal(mines, tanks):
 
     for i, tank in enumerate(tanks):
         print "TANK " + repr(i).rjust(2) + ": ",
-        print "X: " + repr(tank.XCoord).rjust(20),
-        print "Y: " + repr(tank.YCoord).rjust(20),
+        print "X: " + repr(tank.Position[0]).rjust(20),
+        print "Y: " + repr(tank.Position[1]).rjust(20),
         print "FITN.:" + repr(tank.Fitness).rjust(4)
 
 # game loop
