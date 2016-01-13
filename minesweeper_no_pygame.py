@@ -149,7 +149,7 @@ def sortTanks(tanks):
 # print each tank's status
 def updateTerminal(mines, tanks):
     print "\033[2J\033[H"
-    print "\t------------------- MINESWEEPER ----------------------\n"
+    print "\tMINESWEEPER\tTIME: " + str(time.clock()) + '\n'
 
     for i, tank in enumerate(tanks):
         print "TANK " + repr(i).rjust(2) + ": ",
@@ -184,11 +184,6 @@ def gameLoop():
 
 # play the game
 if __name__ == '__main__':
-    # from neural_network import NNetwork
-    # start1 = time.time()
-    # result = gameLoop()
-    # end1 = time.time()
-
     from neural_network_simplified import NNetwork
     start2 = time.time()
     result = gameLoop()
