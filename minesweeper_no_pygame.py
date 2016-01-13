@@ -2,7 +2,7 @@ import math
 import random
 import time
 
-GAME_TIME = 10000               # game duration
+GAME_TIME = 100000              # game duration
 DELAY = 20                      # terminal update frequency
 WIDTH = 400.                    # display width
 HEIGHT = 400.                   # display height
@@ -44,7 +44,8 @@ class MSweeper:
 
     # Resets the sweeper's position, fitness and rotation
     def reset(self):
-        self.Position = [random.randrange(WIDTH), random.randrange(HEIGHT)]
+        self.Position[0] = random.randrange(WIDTH)
+        self.Position[1] = random.randrange(HEIGHT)
         self.Fitness = 0
         self.Rotation = random.random()
 
