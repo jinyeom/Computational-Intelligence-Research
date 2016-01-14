@@ -2,7 +2,7 @@ import math
 import random
 import time
 
-GAME_TIME = 100000              # game duration
+GAME_TIME = 10000               # game duration
 DELAY = 20                      # terminal update frequency
 WIDTH = 400.                    # display width
 HEIGHT = 400.                   # display height
@@ -16,11 +16,6 @@ N_HLNS = 5
 # turn rate constants
 R_MAX = 0.3                     # max turn rate
 R_MIN = -0.3                    # min turn rate
-
-# color constants
-WHITE = (0xff, 0xff, 0xff)
-RED = (0xff, 0x00, 0x00)
-BLACK = (0x00, 0x00, 0x00)
 
 # size constants
 TANK_NUM = 20                   # maintained number of tanks
@@ -135,17 +130,6 @@ class Mine:
         self.Position[0] = random.randrange(WIDTH)
         self.Position[1] = random.randrange(HEIGHT)
 
-# sort tanks by their fitness
-def sortTanks(tanks):
-    if len(tanks) == 0:
-        return tanks
-    pivot = tanks[0]
-    rest = tanks[1:len(tanks)]
-    bigger = [t for t in rest if t.Fitness > pivot.Fitness]
-    equal = [t for t in rest if t.Fitness == pivot.Fitness]
-    smaller = [t for t in rest if t.Fitness < pivot.Fitness]
-    return sortTanks(bigger) + sortTanks(equal) + sortTanks(smaller)
-
 # print each tank's status
 def updateTerminal(mines, tanks):
     print "\033[2J\033[H"
@@ -158,7 +142,7 @@ def updateTerminal(mines, tanks):
         print "FITN.:" + repr(tank.Fitness).rjust(4)
 
 # game loop
-def gameLoop():
+def gameLoop(game_time):
     # generate <MINE_NUM> mines with random positions
     mines = [Mine() for i in range(MINE_NUM)]
 
@@ -168,7 +152,7 @@ def gameLoop():
 
     # game loop
     print "\033[?47h"
-    for i in range(GAME_TIME):
+    for i in range(game_time):
         # move all the tanks
         for tank in tanks:
             tank.update(mines)
@@ -185,9 +169,4 @@ def gameLoop():
 # play the game
 if __name__ == '__main__':
     from neural_network_simplified import NNetwork
-    start2 = time.time()
-    result = gameLoop()
-    end2 = time.time()
-
-    # print "NNET: " + str(end1 - start1)
-    print "NNET_SIM: " + str(end2 - start2)
+    result = gameLoop(GAME_TIME)
