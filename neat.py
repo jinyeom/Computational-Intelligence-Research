@@ -40,14 +40,20 @@ class NEAT:
     def n_mutation(self):
 
 
+
     # structural mutation that adds a connection
     def c_mutation(self):
 
 
 
-
+    # return outputs
     def update(self, inputs):
+        for i, c in enumerate(self.conns):
+            if c.conntd == True:
+                nodes[c.n_to] += c.weight * nodes[c.n_from]
 
+        # return a slice of nodes that contain outputs
+        return nodes[self.n_inputs, self.n_inputs + self.n_outputs]
 
 
     # print NEAT instruction
@@ -68,7 +74,7 @@ class NEAT:
 # define a connection
 class Connection:
     def __init__(self, h_mark, n_from, n_to):
-        self.conntd = True              # false if disabled
+        self.conntd = True              # connected (false if disabled)
         self.h_mark = h_mark            # historical marking
         self.n_from = n_from            # connected from (index)
         self.n_to = n_to                # connected to (index)
