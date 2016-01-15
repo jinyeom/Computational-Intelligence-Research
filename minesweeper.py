@@ -168,5 +168,5 @@ def gameLoop(game_time):
 
 # play the game
 if __name__ == '__main__':
-    from neural_network_simplified import NNetwork
+    from neural_network import NNetwork
     result = gameLoop(GAME_TIME)
