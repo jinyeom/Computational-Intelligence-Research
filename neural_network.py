@@ -8,12 +8,12 @@ class NNetwork:
     def __init__(self, nIns, nHLs, nHLNs, nOuts):
         self.l_data = self.getLayerData(nHLs, nHLNs, nOuts)
         self.n_weights = nHLNs * (nIns + nHLNs * nHLs + nOuts) + nOuts
-        self.weights = [random.random() for i in range(self.n_weights)]
+        self.weights = [random.random() for _ in range(self.n_weights)]
 
     # create list of number of neurons in each layer
     def getLayerData(self, nHLs, nHLNs, nOuts):
         layerData = []
-        for i in range(nHLs):
+        for _ in range(nHLs):
             layerData.append(nHLNs)
         layerData.append(nOuts)
         return layerData
@@ -36,7 +36,7 @@ class NNetwork:
             return inputs
         else:
             outputs = []
-            for i in range(self.l_data[l_counter]):
+            for _ in range(self.l_data[l_counter]):
                 netInput = 0.0
                 for val in inputs:
                     netInput += self.weights[counter] * val

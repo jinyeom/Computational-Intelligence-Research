@@ -135,7 +135,7 @@ def updateTerminal(mines, tanks):
     print "\033[2J\033[H"
     print "\tMINESWEEPER\tTIME: " + str(time.clock()) + '\n'
 
-    for i, tank in enumerate(tanks):
+    for _, tank in enumerate(tanks):
         print "TANK " + repr(i).rjust(2) + ": ",
         print "X: " + repr(tank.Position[0]).rjust(20),
         print "Y: " + repr(tank.Position[1]).rjust(20),
@@ -144,11 +144,11 @@ def updateTerminal(mines, tanks):
 # game loop
 def gameLoop(game_time):
     # generate <MINE_NUM> mines with random positions
-    mines = [Mine() for i in range(MINE_NUM)]
+    mines = [Mine() for _ in range(MINE_NUM)]
 
     # generate <TANK_NUM> tanks with random positions
     tanks = [MSweeper(NNetwork(N_INS, N_OUTS, N_HLS, N_HLNS))
-            for i in range(TANK_NUM)]
+            for _ in range(TANK_NUM)]
 
     # game loop
     print "\033[?47h"

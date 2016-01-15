@@ -15,15 +15,16 @@ class GA:
 
     # initialize population
     def init_population(self):
-        return [self.gen_DNA() for i in range(self.n_pop)]
+        return [self.gen_DNA() for _ in range(self.n_pop)]
 
     # generate a dna
     def gen_DNA(self):
-        return [(random.random() > 0.5) for i in range(self.s_dna)]
+        return [(random.random() > 0.5) for _ in range(self.s_dna)]
 
     # mutation
     def mutation(self):
-        
+        for _, dna in enumerate(self.population):
+            for i in range(len(dna))
 
     # uniform crossover
     def u_crossover(self):
