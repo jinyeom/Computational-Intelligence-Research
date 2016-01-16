@@ -18,14 +18,14 @@ R_MAX = 0.3                     # max turn rate
 R_MIN = -0.3                    # min turn rate
 
 # size constants
-TANK_NUM = 20                   # maintained number of tanks
+AGENT_NUM = 20                  # maintained number of agents
 MINE_NUM = 40                   # maintained number of mines
 
-# define a minesweeper
-class MSweeper:
+# define an agent
+class Agent:
     # Constructor
     def __init__(self, nnet):
-        # minesweeper setup
+        # agent setup
         self.Brain = nnet
         self.Rotation = 0.0
         self.LTrack = 0.16
@@ -37,14 +37,14 @@ class MSweeper:
         self.Vision = [0.0, 0.0]
         self.reset()
 
-    # Resets the sweeper's position, fitness and rotation
+    # Resets the agent's position, fitness and rotation
     def reset(self):
         self.Position[0] = random.randrange(WIDTH)
         self.Position[1] = random.randrange(HEIGHT)
         self.Fitness = 0
         self.Rotation = random.random()
 
-    # update the sweeper's status
+    # update the agent's status
     def update(self, mines):
         # get vector to closest mine
         closest = self.getClosestMine(mines)
@@ -72,7 +72,7 @@ class MSweeper:
         elif rotation > R_MAX:
             rotation = R_MAX
 
-        # update msweeper's rotation, speed, and position
+        # update agent's rotation, speed, and position
         self.Rotation += rotation
         self.Speed = self.LTrack + self.RTrack
 
@@ -135,11 +135,11 @@ def updateTerminal(mines, tanks):
     print "\033[2J\033[H"
     print "\tMINESWEEPER\tTIME: " + str(time.clock()) + '\n'
 
-    for _, tank in enumerate(tanks):
-        print "TANK " + repr(i).rjust(2) + ": ",
-        print "X: " + repr(tank.Position[0]).rjust(20),
-        print "Y: " + repr(tank.Position[1]).rjust(20),
-        print "FITN.:" + repr(tank.Fitness).rjust(4)
+    for i, agent in enumerate(agents):
+        print "AGENT " + repr(i).rjust(2) + ": ",
+        print "X: " + repr(agent.Position[0]).rjust(20),
+        print "Y: " + repr(agent.Position[1]).rjust(20),
+        print "FITN.:" + repr(agent.Fitness).rjust(4)
 
 # game loop
 def gameLoop(game_time):
@@ -147,24 +147,24 @@ def gameLoop(game_time):
     mines = [Mine() for _ in range(MINE_NUM)]
 
     # generate <TANK_NUM> tanks with random positions
-    tanks = [MSweeper(NNetwork(N_INS, N_OUTS, N_HLS, N_HLNS))
-            for _ in range(TANK_NUM)]
+    agents = [Agent(NNetwork(N_INS, N_OUTS, N_HLS, N_HLNS))
+            for _ in range(AGENT_NUM)]
 
     # game loop
     print "\033[?47h"
     for i in range(game_time):
         # move all the tanks
-        for tank in tanks:
-            tank.update(mines)
+        for a in agents:
+            a.update(mines)
             # check collision with a mine
-            if tank.checkCollision(mines, 2) != -1:
-                mines[tank.ClosestMine].reset()
-                tank.Fitness += 1
+            if a.checkCollision(mines, 2) != -1:
+                mines[a.ClosestMine].reset()
+                a.Fitness += 1
         # update the terminal screen given the delay frequency
         if i % DELAY == 0:
-            updateTerminal(mines, tanks)
-    # return the tanks
-    return tanks
+            updateTerminal(mines, agents)
+    # return the tanks' fitness scores
+    return [a.Fitness for a in agents]
 
 # play the game
 if __name__ == '__main__':

@@ -10,6 +10,12 @@ class NNetwork:
         self.n_weights = nHLNs * (nIns + nHLNs * nHLs + nOuts) + nOuts
         self.weights = [random.random() for _ in range(self.n_weights)]
 
+    # initialize weights according to dna
+    def init_weights(self, dna):
+
+        
+
+
     # create list of number of neurons in each layer
     def getLayerData(self, nHLs, nHLNs, nOuts):
         layerData = []

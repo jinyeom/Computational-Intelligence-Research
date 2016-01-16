@@ -1,39 +1,47 @@
 import math
 import random
+import minesweeper
 
-class GA:
-    def __init__(self, s_dna, s_pop, n_gen, p_mut, p_xover):
-        # config.
-        self.s_dna = s_dna          # DNA size
-        self.s_pop = s_pop          # population size
-        self.n_gen = n_gen          # number of generations
-        self.p_mut = p_mut          # probability of mutation
-        self.p_xover = p_xover      # probability of crossover
+# config.
+s_dna = 10          # DNA size
+s_pop = 20          # population size
+n_gen = 20          # number of generations
+p_mut = 0.1         # probability of mutation
+p_xover = 0.1       # probability of crossover
+t_game = 10000      # game execution time
 
-        # population
-        self.population = self.init_population()
+# initialize population
+def init_population():
+    return [gen_DNA() for _ in range(n_pop)]
 
-    # initialize population
-    def init_population(self):
-        return [self.gen_DNA() for _ in range(self.n_pop)]
+# generate a dna
+def gen_DNA():
+    return [(random.random() > 0.5) for _ in range(s_dna)]
 
-    # generate a dna
-    def gen_DNA(self):
-        return [(random.random() > 0.5) for _ in range(self.s_dna)]
-
-    # mutation
-    def mutation(self):
-        for _, dna in enumerate(self.population):
-            for i in range(len(dna))
-
-    # uniform crossover
-    def u_crossover(self):
-
-
-    # execute GA
-    def execute(self):
+# tournament selection
+def t_selection():
 
 
 
 
-if __name__ == "__main__":
+# mutate a DNA
+def mutation(dna):
+    for i in range(len(dna)):
+        if random.random() < p_mut:
+            dna[i] = not dna[i]
+
+# uniform crossover
+def u_crossover(dna_1, dna_2):
+    for i in range(len(dna_1)):
+        if random.random() < p_xover:
+            temp = dna_1[i]
+            dna_1[i] = dna_2[i]
+            dna_2[i] = temp
+
+# execute GA
+def execute():
+    population = init_population()
+    best = None
+    for _ in range(n_gen):
+        scores = minesweeper.gameLoop(t_game)
+        
