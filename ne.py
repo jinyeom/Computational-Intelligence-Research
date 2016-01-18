@@ -1,5 +1,5 @@
-import random
 import math
+import random
 
 # evolutionary algorithm constants
 P_WEIGHT = 7 # weight precision = 1 / 128
@@ -13,6 +13,10 @@ class NNetwork:
         self.l_data = self.getLayerData(nHLs, nHLNs, nOuts)
         self.n_weights = nHLNs * (nIns + nHLNs * nHLs + nOuts) + nOuts
         self.weights = [random.random() for _ in range(self.n_weights)]
+
+    def init_weights(self, dna):
+        
+
 
     # create list of number of neurons in each layer
     def getLayerData(self, nHLs, nHLNs, nOuts):
@@ -53,13 +57,3 @@ class NNetwork:
     # sigmoid function
     def sigmoid(self, netInput, response):
         return 1.0 / (1.0 + math.exp(-netInput / response))
-
-# for testing
-def test():
-    nnet = NNetwork(2, 3, 3, 1)
-    inputs = [5, 4]
-    print "LAYER DATA: " + str(nnet.l_data)
-    print "NUM WEIGHTS: " + str(nnet.n_weights)
-    print "WEIGHTS: ",
-    print nnet.weights
-    print "OUTPUT: " + str(nnet.update(inputs))

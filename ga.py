@@ -44,4 +44,3 @@ def execute():
     best = None
     for _ in range(n_gen):
         scores = minesweeper.gameLoop(t_game)
-        

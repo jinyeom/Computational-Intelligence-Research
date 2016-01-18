@@ -129,6 +129,9 @@ class Mine:
     def reset(self):
         self.Position[0] = random.randrange(WIDTH)
         self.Position[1] = random.randrange(HEIGHT)
+        
+
+# ------------------------ FUNCTIONS FOR DIRECT CALL --------------------------
 
 # print each tank's status
 def updateTerminal(mines, tanks):
