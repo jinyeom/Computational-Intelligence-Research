@@ -12,11 +12,28 @@ class NNetwork:
     def __init__(self, nIns, nHLs, nHLNs, nOuts):
         self.l_data = self.getLayerData(nHLs, nHLNs, nOuts)
         self.n_weights = nHLNs * (nIns + nHLNs * nHLs + nOuts) + nOuts
-        self.weights = [random.random() for _ in range(self.n_weights)]
+        self.dna = self.gen_DNA()
+        self.weights = self.init_weights()
 
-    def init_weights(self, dna):
-        
+    # generate DNA for the neural network
+    def gen_DNA(self):
+        l_dna = self.n_weights * P_WEIGHT
+        return [(random.random() > 0.5) for _ in range(l_dna)]
 
+    # initialize weights based on DNA
+    def init_weights(self):
+        weights = []
+        for i in range(self.n_weights):
+            dnaSlice = self.dna[i * P_WEIGHT:(i + 1) * P_WEIGHT]
+            b_sum = 0.0
+
+            for j, bit in enumerate(dnaSlice):
+                if bit == True:
+                    b_sum += math.pow(2.0, P_WEIGHT - j)
+            weight = b_sum / (math.pow(2.0, P_WEIGHT + 1) - 1)
+            weights.append(weight)
+
+        return weights
 
     # create list of number of neurons in each layer
     def getLayerData(self, nHLs, nHLNs, nOuts):
@@ -57,3 +74,8 @@ class NNetwork:
     # sigmoid function
     def sigmoid(self, netInput, response):
         return 1.0 / (1.0 + math.exp(-netInput / response))
+
+if __name__ == '__main__':
+    nnet = NNetwork(2, 3, 3, 1)
+    print nnet.dna
+    print nnet.weights

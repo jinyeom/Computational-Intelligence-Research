@@ -129,7 +129,7 @@ class Mine:
     def reset(self):
         self.Position[0] = random.randrange(WIDTH)
         self.Position[1] = random.randrange(HEIGHT)
-        
+
 
 # ------------------------ FUNCTIONS FOR DIRECT CALL --------------------------
 
