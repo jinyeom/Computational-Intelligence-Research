@@ -1,2 +1,2 @@
-# Multi-Agent-System-Research
-Multi-Agent System Research
+# Computational Intelligence Research
+Computational Intelligence Research
