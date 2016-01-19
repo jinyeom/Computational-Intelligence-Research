@@ -2,14 +2,6 @@ import math
 import random
 import minesweeper
 
-# config.
-s_dna = 10          # DNA size
-s_pop = 20          # population size
-n_gen = 20          # number of generations
-p_mut = 0.1         # probability of mutation
-p_xover = 0.1       # probability of crossover
-t_game = 10000      # game execution time
-
 # initialize population
 def init_population():
     return [gen_DNA() for _ in range(n_pop)]
@@ -20,7 +12,7 @@ def gen_DNA():
 
 # tournament selection
 def t_selection():
-
+    
 
 
 

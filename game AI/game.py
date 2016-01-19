@@ -158,7 +158,7 @@ def gameLoop(game_time):
 # print each tank's status
 def updateTerminal(mines, tanks):
     print "\033[2J\033[H"
-    print "\tMINESWEEPER\tTIME: " + str(time.clock()) + '\n'
+    print "\tGAME\tTIME: " + str(time.clock()) + '\n'
 
     for i, agent in enumerate(agents):
         print "AGENT " + repr(i).rjust(2) + ": ",
