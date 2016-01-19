@@ -130,20 +130,6 @@ class Mine:
         self.Position[0] = random.randrange(WIDTH)
         self.Position[1] = random.randrange(HEIGHT)
 
-
-# ------------------------ FUNCTIONS FOR DIRECT CALL --------------------------
-
-# print each tank's status
-def updateTerminal(mines, tanks):
-    print "\033[2J\033[H"
-    print "\tMINESWEEPER\tTIME: " + str(time.clock()) + '\n'
-
-    for i, agent in enumerate(agents):
-        print "AGENT " + repr(i).rjust(2) + ": ",
-        print "X: " + repr(agent.Position[0]).rjust(20),
-        print "Y: " + repr(agent.Position[1]).rjust(20),
-        print "FITN.:" + repr(agent.Fitness).rjust(4)
-
 # game loop
 def gameLoop(game_time):
     # generate <MINE_NUM> mines with random positions
@@ -168,6 +154,17 @@ def gameLoop(game_time):
             updateTerminal(mines, agents)
     # return the tanks' fitness scores
     return [a.Fitness for a in agents]
+
+# print each tank's status
+def updateTerminal(mines, tanks):
+    print "\033[2J\033[H"
+    print "\tMINESWEEPER\tTIME: " + str(time.clock()) + '\n'
+
+    for i, agent in enumerate(agents):
+        print "AGENT " + repr(i).rjust(2) + ": ",
+        print "X: " + repr(agent.Position[0]).rjust(20),
+        print "Y: " + repr(agent.Position[1]).rjust(20),
+        print "FITN.:" + repr(agent.Fitness).rjust(4)
 
 # play the game
 if __name__ == '__main__':

@@ -8,7 +8,7 @@ P_WEIGHT = 7 # weight precision = 1 / 128
 BIAS = -1
 RESPONSE = 1
 
-class NNetwork:
+class NEvolution:
     def __init__(self, nIns, nHLs, nHLNs, nOuts):
         self.l_data = self.getLayerData(nHLs, nHLNs, nOuts)
         self.n_weights = nHLNs * (nIns + nHLNs * nHLs + nOuts) + nOuts
@@ -76,6 +76,6 @@ class NNetwork:
         return 1.0 / (1.0 + math.exp(-netInput / response))
 
 if __name__ == '__main__':
-    nnet = NNetwork(2, 3, 3, 1)
-    print nnet.dna
-    print nnet.weights
+    ne = NEvolution(2, 3, 3, 1)
+    print ne.dna
+    print ne.weights
