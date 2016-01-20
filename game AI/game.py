@@ -1,6 +1,5 @@
 import pygame
 import math
-import random
 from agent import Agent
 from target import Target
 
@@ -34,7 +33,6 @@ class Game:
         pygame.quit()
         return [a.fitness for a in self.agents]
 
-
     def game_logic(self):
         for a in self.agents:
             a.update(self.targets)
@@ -45,7 +43,7 @@ class Game:
     def process_graphic(self):
         for t in self.targets:
             t_img = pygame.transform.rotate(
-                pygame.image.load(config.image['agent']).convert_alpha(),
+                pygame.image.load(config.image['target']).convert_alpha(),
                 a.rotation * -180 / math.pi)
             self.display.blit(t_img, (self.a.position[0], self.a.position[1]))
 
@@ -58,7 +56,15 @@ class Game:
         pygame.display.update()
 
     def update_terminal(self):
+        print "\033[2J\033[H"
+        print "\t" + config.game['g_name'],
+        print "\tTIME: " + str(time.clock()) + '\n'
 
+        for i, tank in enumerate(tanks):
+            print "AGENT " + repr(i).rjust(2) + ": ",
+            print "X: " + repr(tank.Position[0]).rjust(20),
+            print "Y: " + repr(tank.Position[1]).rjust(20),
+            print "FITN.:" + repr(tank.Fitness).rjust(4)
 
 if __name__ == '__main__':
     g = Game()
