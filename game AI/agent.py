@@ -85,3 +85,14 @@ class Agent:
                 self.t_closest = index
 
         return closestVec
+
+    def check_collision(self, targets, size):
+        closest = targets[self.t_closest]
+        diff = [self.position[0] - closest.position[0],
+                self.position[1] - closest.position[1]]
+        dist = math.sqrt(diff[0] * diff[0] + diff[1] * diff[1])
+
+        if dist < (size + 5.0):
+            return self.t_closest
+
+        return -1
