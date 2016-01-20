@@ -27,8 +27,7 @@ class Game:
             self.game_logic()
             self.update_terminal()
 
-            if display:
-                self.process_graphic()
+            if display: self.process_graphic()
 
             self.clock.tick(config.game['fps'])
 
@@ -45,10 +44,16 @@ class Game:
 
     def process_graphic(self):
         for t in self.targets:
-            
+            t_img = pygame.transform.rotate(
+                pygame.image.load(config.image['agent']).convert_alpha(),
+                a.rotation * -180 / math.pi)
+            self.display.blit(t_img, (self.a.position[0], self.a.position[1]))
 
         for a in self.agents:
-
+            a_img = pygame.transform.rotate(
+                pygame.image.load(config.image['agent']).convert_alpha(),
+                a.rotation * -180 / math.pi)
+            self.display.blit(a_img, (self.a.position[0], self.a.position[1]))
 
         pygame.display.update()
 
