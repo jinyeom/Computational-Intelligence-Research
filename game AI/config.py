@@ -6,6 +6,8 @@ game = dict(
     height              = 400,          # game height
     n_agents            = 40,           # number of agents
     n_targets           = 20,           # number of targets
+    s_agent             = 28,           # size of an agent
+    s_target            = 2,            # size of a target
 )
 
 # configuration for neural network
@@ -14,6 +16,8 @@ nnet = dict(
     n_outputs           = 2,            # number of outputs
     n_hidden_layers     = 3,            # number of hidden layers
     n_hl_neurons        = 4,            # number of neurons in a hidden layer
+    bias                = -1,           # bias
+    response            = 1,            # response
 )
 
 # configuration for genetic algorithm

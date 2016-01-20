@@ -86,13 +86,13 @@ class Agent:
 
         return closestVec
 
-    def check_collision(self, targets, size):
+    def check_collision(self, targets):
         closest = targets[self.t_closest]
         diff = [self.position[0] - closest.position[0],
                 self.position[1] - closest.position[1]]
         dist = math.sqrt(diff[0] * diff[0] + diff[1] * diff[1])
 
-        if dist < (size + 5.0):
+        if dist < (config.game['s_target'] + config.game['s_agent']):
             return self.t_closest
 
         return -1
