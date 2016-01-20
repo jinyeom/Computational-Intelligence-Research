@@ -5,7 +5,7 @@ game = dict(
     width               = 400,          # game width
     height              = 400,          # game height
     n_agents            = 40,           # number of agents
-    n_diamonds          = 20,           # number of diamonds
+    n_targets           = 20,           # number of targets
 )
 
 # configuration for neural network
