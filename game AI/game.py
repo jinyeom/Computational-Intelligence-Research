@@ -44,6 +44,7 @@ class Game:
             if a.check_collision(self.targets) != -1:
                 self.targets[a.t_closest].reset()
                 a.fitness += 1
+        self.quick_sort_agents(self.agents)
 
     def process_graphic(self):
         for t in self.targets:
