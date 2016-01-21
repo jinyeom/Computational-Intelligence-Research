@@ -40,10 +40,10 @@ class Agent:
 
         # define rotation rate
         r_rotation = self.track[0] - self.track[1]
-        if r_rotation < R_MIN:
-            r_rotation = R_MIN
-        elif r_rotation > R_MAX:
-            r_rotation = R_MAX
+        if r_rotation < config.game['r_min']:
+            r_rotation = config.game['r_min']
+        elif r_rotation > config.game['r_max']:
+            r_rotation = config.game['r_max']
 
         # update rotation
         self.rotation += r_rotation

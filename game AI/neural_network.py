@@ -1,5 +1,6 @@
 import random
 import math
+import config
 
 # evolutionary algorithm constants
 P_WEIGHT = 7 # weight precision = 1 / 128
@@ -7,8 +8,14 @@ P_WEIGHT = 7 # weight precision = 1 / 128
 class NNet:
     def __init__(self):
         self.l_data = self.get_layer_data()
-        self.n_weights = nHLNs * (nIns + nHLNs * nHLs + nOuts) + nOuts
+        self.n_weights = self.get_n_weights()
         self.weights = [random.random() for _ in range(self.n_weights)]
+
+    # calculate the number of weights
+    def get_n_weights(self):
+        return config.nnet['n_hl_neurons'] * (config.nnet['n_inputs'] +
+                config.nnet['n_hl_neurons'] * config.nnet['n_hidden_layers'] +
+                config.nnet['n_outputs']) + config.nnet['n_outputs']
 
     # create list of number of neurons in each layer
     def get_layer_data(self):

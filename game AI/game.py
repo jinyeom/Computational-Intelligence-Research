@@ -1,7 +1,10 @@
 import pygame
 import math
+import time
+import config
 from agent import Agent
 from target import Target
+from neural_network import NNet
 
 class Game:
     def __init__(self):
@@ -16,16 +19,18 @@ class Game:
         self.agents = [Agent(NNet()) for _ in range(config.game['n_agents'])]
         self.targets = [Target() for _ in range(config.game['n_targets'])]
 
+        # save terminal
+        print "\033[?47h"
+
     def game_loop(self, display=False):
         for i in range(config.game['g_time']):
 
             for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    break
+                if event.type == pygame.QUIT: break
 
             self.game_logic()
-            self.update_terminal()
 
+            if i % config.game['delay'] == 0: self.update_terminal()
             if display: self.process_graphic()
 
             self.clock.tick(config.game['fps'])
@@ -60,11 +65,11 @@ class Game:
         print "\t" + config.game['g_name'],
         print "\tTIME: " + str(time.clock()) + '\n'
 
-        for i, tank in enumerate(tanks):
+        for i, a in enumerate(self.agents):
             print "AGENT " + repr(i).rjust(2) + ": ",
-            print "X: " + repr(tank.Position[0]).rjust(20),
-            print "Y: " + repr(tank.Position[1]).rjust(20),
-            print "FITN.:" + repr(tank.Fitness).rjust(4)
+            print "X: " + repr(a.position[0]).rjust(20),
+            print "Y: " + repr(a.position[1]).rjust(20),
+            print "FITN.:" + repr(a.fitness).rjust(4)
 
 if __name__ == '__main__':
     g = Game()
