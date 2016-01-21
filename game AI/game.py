@@ -1,6 +1,7 @@
 import pygame
 import math
 import time
+import util
 import config
 from agent import Agent
 from target import Target
@@ -41,32 +42,27 @@ class Game:
     def game_logic(self):
         for a in self.agents:
             a.update(self.targets)
+
             if a.check_collision(self.targets) != -1:
                 self.targets[a.t_closest].reset()
                 a.fitness += 1
-        self.quick_sort_agents(self.agents)
+
+        self.agents = util.quicksort(self.agents)
 
     def process_graphic(self):
+        self.display.fill((0xff, 0xff, 0xff))
+
         for t in self.targets:
-            t_img = pygame.transform.rotate(
-                pygame.image.load(config.image['target']).convert_alpha(),
-                a.rotation * -180 / math.pi)
-            self.display.blit(t_img, (self.a.position[0], self.a.position[1]))
+            t_img = pygame.image.load(config.image['target']).convert_alpha()
+            self.display.blit(t_img, (t.position[0], t.position[1]))
 
         for a in self.agents:
             a_img = pygame.transform.rotate(
                 pygame.image.load(config.image['agent']).convert_alpha(),
                 a.rotation * -180 / math.pi)
-            self.display.blit(a_img, (self.a.position[0], self.a.position[1]))
+            self.display.blit(a_img, (a.position[0], a.position[1]))
 
         pygame.display.update()
-
-    def quick_sort_agents(self, agents):
-        pivot = agents[0]
-        larger = [a for a in agents if a.fitness > pivot.fitness]
-        equal = [a for a in agents if a.fitness == pivot.fitness]
-        smaller = [a for a in agents if a.fitess < pivot.fitness]
-        self.agents = self.quick_sort_agents(larger + equal + smaller)
 
     def update_terminal(self):
         print "\033[2J\033[H"
