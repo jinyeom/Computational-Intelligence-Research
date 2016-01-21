@@ -8,8 +8,7 @@ P_WEIGHT = 7 # weight precision = 1 / 128
 class NNet:
     def __init__(self):
         self.l_data = self.get_layer_data()
-        self.n_weights = self.get_n_weights()
-        self.weights = [random.random() for _ in range(self.n_weights)]
+        self.weights = [random.random() for _ in range(self.get_n_weights())]
 
     # calculate the number of weights
     def get_n_weights(self):
