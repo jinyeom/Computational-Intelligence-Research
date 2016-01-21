@@ -60,6 +60,13 @@ class Game:
 
         pygame.display.update()
 
+    def quick_sort_agents(self, agents):
+        pivot = agents[0]
+        larger = [a for a in agents if a.fitness > pivot.fitness]
+        equal = [a for a in agents if a.fitness == pivot.fitness]
+        smaller = [a for a in agents if a.fitess < pivot.fitness]
+        self.agents = self.quick_sort_agents(larger + equal + smaller)
+
     def update_terminal(self):
         print "\033[2J\033[H"
         print "\t" + config.game['g_name'],
