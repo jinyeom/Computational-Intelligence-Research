@@ -1,3 +1,5 @@
+# game.py
+
 import pygame
 import math
 import time
@@ -24,22 +26,15 @@ class Game:
         # save terminal
         print "\033[?47h"
 
-    def reset(self):
-        self.agents = [Agent(n, NNet()) for n in range(c.game['n_agents'])]
-        self.targets = [Target() for _ in range(c.game['n_targets'])]
-
     def game_loop(self, display=False):
         for i in range(c.game['g_time']):
 
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT: break
-
             self.game_logic()
 
-            if i % c.game['delay'] == 0: self.update_terminal()
-            if display: self.process_graphic()
-
-            self.clock.tick(c.game['fps'])
+            if i % c.game['delay'] == 0:
+                self.update_terminal()
+            if display:
+                self.process_graphic()
 
         pygame.quit()
         return [a.fitness for a in self.agents]
@@ -68,6 +63,7 @@ class Game:
             self.display.blit(a_img, (a.position[0], a.position[1]))
 
         pygame.display.update()
+        self.clock.tick(c.game['fps'])
 
     def update_terminal(self):
         print "\033[2J\033[H"
@@ -78,7 +74,7 @@ class Game:
             print "AGENT " + repr(a.number).rjust(2) + ": ",
             print "X: " + repr(a.position[0]).rjust(20),
             print "Y: " + repr(a.position[1]).rjust(20),
-            print "FITN.:" + repr(a.fitness).rjust(4)
+            print "FITN.:" + repr(a.fitness).rjust(5)
 
 if __name__ == '__main__':
     g = Game()

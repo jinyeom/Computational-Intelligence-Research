@@ -7,7 +7,7 @@ game = dict(
     g_name              = "GAME",       # game name
     g_time              = 10000,        # game time
     fps                 = 60,           # frame per second
-    delay               = 10,           # terminal update delay
+    delay               = 60,           # terminal update delay
     n_agents            = 20,           # number of agents
     n_targets           = 40,           # number of targets
     s_agent             = 28,           # size of an agent
@@ -25,6 +25,7 @@ image = dict(
 
 # configuration for neural network
 nnet = dict(
+    p_weight            = 7,            # precision of weights
     n_inputs            = 4,            # number of inputs
     n_outputs           = 2,            # number of outputs
     n_hidden_layers     = 3,            # number of hidden layers
@@ -35,8 +36,6 @@ nnet = dict(
 
 # configuration for genetic algorithm
 ga = dict(
-    s_dna               = 10,           # DNA size
-    s_pop               = 20,           # population size
     n_gen               = 20,           # number of generations
     p_mut               = 0.1,          # probability of mutation
     p_xover             = 0.1,          # probability of crossover

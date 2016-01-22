@@ -1,5 +1,7 @@
+# target.py
+
 import math
-import random
+import random as r
 import config as c
 
 class Target:
@@ -8,5 +10,5 @@ class Target:
         self.reset()
 
     def reset(self):
-        self.position = [random.randrange(c.game['width']),
-                        random.randrange(c.game['height'])]
+        self.position = [r.randrange(c.game['width']),
+                        r.randrange(c.game['height'])]

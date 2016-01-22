@@ -1,39 +1,65 @@
+# ga.py
+
 import math
-import random
-import game
+import random as r
 import config as c
-
-# initialize population
-def init_population():
-    return [gen_DNA() for _ in range(n_pop)]
-
-# generate a dna
-def gen_DNA():
-    return [(random.random() > 0.5) for _ in range(s_dna)]
+from game import Game
 
 # tournament selection
-def t_selection():
-
-
-
+def t_selection(agents):
+    best = r.choice(agents)
+    for _ in range(len(agents) - 1):
+        rand = r.choice(agents)
+        if rand.fitness > best.fitness:
+            best = rand
+    return best
 
 # mutate a DNA
 def mutation(dna):
-    for i in range(len(dna)):
-        if random.random() < p_mut:
-            dna[i] = not dna[i]
+    return [b if r.random() < c.ga['p_mut'] else not b for b in dna]
 
 # uniform crossover
 def u_crossover(dna_1, dna_2):
+    c_dna_1 = []
+    c_dna_2 = []
+
     for i in range(len(dna_1)):
-        if random.random() < p_xover:
-            temp = dna_1[i]
-            dna_1[i] = dna_2[i]
-            dna_2[i] = temp
+        if r.random() < c.ga['p_xover']:
+            c_dna_1.append(dna_1[i])
+            c_dna_2.append(dna_2[i])
+        else:
+            c_dna_1.append(dna_2[i])
+            c_dna_2.append(dna_1[i])
+
+    return c_dna_1, c_dna_2
 
 # execute GA
 def execute():
-    population = init_population()
-    best = None
-    for _ in range(n_gen):
-        scores = minesweeper.gameLoop(t_game)
+    g = Game()
+    b_fitness = -1
+    b_gene = []
+
+    for _ in range(c.ga['n_gen']):
+        g.game_loop()
+
+        if g.agents[0].fitness > b_fitness:
+            b_gene = g.agents[0].brain.dna
+
+        children_dna = []
+        for __ in range(c.game['n_agents'] / 2):
+            p_1 = t_selection(g.agents)
+            p_2 = t_selection(g.agents)
+
+            c_dna_1, c_dna_2 = u_crossover(p_1.brain.dna, p_2.brain.dna)
+
+            children_dna.append(mutation(c_dna_1))
+            children_dna.append(mutation(c_dna_2))
+
+        for i, a in enumerate(g.agents):
+            a.brain.init_weights(children_dna[i])
+            a.reset()
+
+    g.game_loop(True)
+
+if __name__ == '__main__':
+    execute()

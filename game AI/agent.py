@@ -1,5 +1,7 @@
+# agent.py
+
 import math
-import random
+import random as r
 import config as c
 
 class Agent:
@@ -16,20 +18,23 @@ class Agent:
 
     def reset(self):
         self.fitness = 0
-        self.rotation = random.random()
-        self.position = [random.randrange(c.game['width']),
-                        random.randrange(c.game['height'])]
+        self.rotation = r.random()
+        self.position = [r.randrange(c.game['width']),
+                        r.randrange(c.game['height'])]
 
     def update(self, targets):
         # get vector to closest mine
         closest = self.get_closest_target(targets)
         dist = math.sqrt(closest[0] * closest[0] + closest[1] * closest[1])
 
+        normalized = [closest[0]/dist, closest[1]/dist]
+        if dist == 0.0: normalized = [0.0, 0.0]
+
         # inputs for neural network
         inputs = []
 
-        inputs.append(closest[0]/dist)
-        inputs.append(closest[1]/dist)
+        inputs.append(normalized[0])
+        inputs.append(normalized[1])
 
         inputs.append(self.vision[0])
         inputs.append(self.vision[1])

@@ -1,14 +1,38 @@
-import random
-import math
-import config as c
+# neural_network.py
 
-# evolutionary algorithm constants
-P_WEIGHT = 7 # weight precision = 1 / 128
+import math
+import random as r
+import config as c
 
 class NNetwork:
     def __init__(self):
         self.l_data = self.get_layer_data()
-        self.weights = [random.random() for _ in range(self.get_n_weights())]
+        self.n_weights = self.get_n_weights()
+        self.dna = self.gen_DNA()
+        self.weights = self.init_weights(self.dna)
+
+    # generate DNA for the neural network
+    def gen_DNA(self):
+        l_dna = self.n_weights * c.nnet['p_weight']
+        return [(r.random() > 0.5) for _ in range(l_dna)]
+
+    # initialize weights based on a given DNA
+    def init_weights(self, dna):
+        weights = []
+
+        for i in range(self.n_weights):
+            b_sum = 0.0
+            dnaSlice = dna[i * c.nnet['p_weight']:
+                        (i + 1) * c.nnet['p_weight']]
+
+            for j, bit in enumerate(dnaSlice):
+                if bit == True:
+                    b_sum += math.pow(2.0, c.nnet['p_weight'] - j)
+
+            weight = b_sum / (math.pow(2.0, c.nnet['p_weight'] + 1) - 1)
+            weights.append(weight)
+
+        return weights
 
     # calculate the number of weights
     def get_n_weights(self):
