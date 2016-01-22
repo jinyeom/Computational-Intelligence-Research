@@ -1,9 +1,9 @@
 import math
 import random
-import config
+import config as c
 
 class Agent:
-    def __init__(self, nnet, number):
+    def __init__(self, number, nnet):
         self.number = number        # agent number
         self.brain = nnet           # neural network
         self.fitness = 0            # fitness
@@ -17,8 +17,8 @@ class Agent:
     def reset(self):
         self.fitness = 0
         self.rotation = random.random()
-        self.position = [random.randrange(config.game['width']),
-                        random.randrange(config.game['height'])]
+        self.position = [random.randrange(c.game['width']),
+                        random.randrange(c.game['height'])]
 
     def update(self, targets):
         # get vector to closest mine
@@ -41,10 +41,10 @@ class Agent:
 
         # define rotation rate
         r_rotation = self.track[0] - self.track[1]
-        if r_rotation < config.game['r_min']:
-            r_rotation = config.game['r_min']
-        elif r_rotation > config.game['r_max']:
-            r_rotation = config.game['r_max']
+        if r_rotation < c.game['r_min']:
+            r_rotation = c.game['r_min']
+        elif r_rotation > c.game['r_max']:
+            r_rotation = c.game['r_max']
 
         # update rotation
         self.rotation += r_rotation
@@ -61,14 +61,14 @@ class Agent:
         self.position[1] += self.vision[1] * self.speed
 
         # wrap around window limits
-        if self.position[0] > config.game['width']:
+        if self.position[0] > c.game['width']:
             self.position[0] = 0.0
         if self.position[0] < 0.0:
-            self.position[0] = config.game['width']
-        if self.position[1] > config.game['height']:
+            self.position[0] = c.game['width']
+        if self.position[1] > c.game['height']:
             self.position[1] = 0.0
         if self.position[1] < 0.0:
-            self.position[1] = config.game['height']
+            self.position[1] = c.game['height']
 
     def get_closest_target(self, targets):
         closest = 99999.0
@@ -93,7 +93,7 @@ class Agent:
                 self.position[1] - closest.position[1]]
         dist = math.sqrt(diff[0] * diff[0] + diff[1] * diff[1])
 
-        if dist < (config.game['s_target'] + config.game['s_agent']):
+        if dist < (c.game['s_target'] + c.game['s_agent']):
             return self.t_closest
 
         return -1

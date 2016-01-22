@@ -1,6 +1,7 @@
 import math
 import random
 import game
+import config as c
 
 # initialize population
 def init_population():
