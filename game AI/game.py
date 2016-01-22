@@ -78,4 +78,4 @@ class Game:
 
 if __name__ == '__main__':
     g = Game()
-    g.game_loop()
+    g.game_loop(True)
