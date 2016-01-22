@@ -12,6 +12,7 @@ class Game:
         # pygame setup
         pygame.init()
         pygame.display.set_caption(c.game['g_name'])
+        pygame.display.set_icon(pygame.image.load(c.image['icon']))
         self.clock = pygame.time.Clock()
         self.display = pygame.display.set_mode(
                 (c.game['width'], c.game['height']))
