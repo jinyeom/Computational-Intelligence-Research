@@ -69,8 +69,8 @@ class Game:
         print "\t" + config.game['g_name'],
         print "\tTIME: " + str(time.clock()) + '\n'
 
-        for i, a in enumerate(self.agents):
-            print "AGENT " + repr(i).rjust(2) + ": ",
+        for a in self.agents:
+            print "AGENT " + repr(a.number).rjust(2) + ": ",
             print "X: " + repr(a.position[0]).rjust(20),
             print "Y: " + repr(a.position[1]).rjust(20),
             print "FITN.:" + repr(a.fitness).rjust(4)

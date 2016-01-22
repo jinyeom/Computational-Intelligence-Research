@@ -18,8 +18,8 @@ game = dict(
 
 # configuration for image sources
 image = dict(
-    agent               = "agent.png",  # path of agent image file
-    target              = "target.png", # path of target image file
+    agent               = "a.png",      # path of agent image file
+    target              = "t.png",      # path of target image file
 )
 
 # configuration for neural network

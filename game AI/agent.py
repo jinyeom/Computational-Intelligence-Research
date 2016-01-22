@@ -3,7 +3,8 @@ import random
 import config
 
 class Agent:
-    def __init__(self, nnet):
+    def __init__(self, nnet, number):
+        self.number = number        # agent number
         self.brain = nnet           # neural network
         self.fitness = 0            # fitness
         self.t_closest = 0          # index of the closest target
