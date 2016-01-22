@@ -23,6 +23,10 @@ class Game:
         # save terminal
         print "\033[?47h"
 
+    def reset(self):
+        a.reset() for a in self.agents
+        t.reset() for t in self.targets
+
     def game_loop(self, display=False):
         for i in range(config.game['g_time']):
 

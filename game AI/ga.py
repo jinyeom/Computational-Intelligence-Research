@@ -1,6 +1,6 @@
 import math
 import random
-import minesweeper
+import game
 
 # initialize population
 def init_population():
@@ -12,7 +12,7 @@ def gen_DNA():
 
 # tournament selection
 def t_selection():
-    
+
 
 
 
