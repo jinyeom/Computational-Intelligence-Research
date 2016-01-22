@@ -5,7 +5,7 @@ import util
 import config
 from agent import Agent
 from target import Target
-from neural_network import NNet
+from neural_network import NNetwork as NNet
 
 class Game:
     def __init__(self):

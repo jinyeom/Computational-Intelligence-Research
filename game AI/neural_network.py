@@ -5,7 +5,7 @@ import config
 # evolutionary algorithm constants
 P_WEIGHT = 7 # weight precision = 1 / 128
 
-class NNet:
+class NNetwork:
     def __init__(self):
         self.l_data = self.get_layer_data()
         self.weights = [random.random() for _ in range(self.get_n_weights())]
