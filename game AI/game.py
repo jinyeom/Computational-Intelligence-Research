@@ -19,7 +19,7 @@ class Game:
                             (c.game['width'], c.game['height']))
 
         # game setup
-        self.gen        = 0
+        self.generation = 0
         self.agents     = [A(i, NNet(p[i])) for i in range(c.game['n_agents'])]
         self.targets    = [T() for _ in range(c.game['n_targets'])]
 

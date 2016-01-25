@@ -3,8 +3,8 @@ import math
 import pygame
 import random as r
 import config as c
-from agent import Agent
 from game import Game
+from agent import Agent
 from neural_network import NNetwork as NNet
 
 # initialize population given number of population and length of each DNA
@@ -87,7 +87,7 @@ def execute():
             children.append(mutation(c_dna_1))
             children.append(mutation(c_dna_2))
 
-        g.gen += 1
+        g.generation += 1
         g.agents = [Agent(i, NNet(children[i]))
                     for i in range(c.game['n_agents'])]
 
