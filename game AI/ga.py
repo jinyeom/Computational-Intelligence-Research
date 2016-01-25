@@ -6,7 +6,19 @@ import random as r
 import config as c
 from agent import Agent
 from game import Game
-from neural_network import NNetwork
+from neural_network import NNetwork as NNet
+
+def init_population(n_pop, l_dna):
+    return [gen_DNA(l_dna) for _ in range(n_pop)]
+
+def gen_DNA(l_dna):
+    dna = ""
+
+    for _ in range(l_dna):
+        if r.random() > 0.5: dna += "1"
+        else: dna += "0"
+
+    return dna
 
 # tournament selection (returns the best index)
 def t_selection(agents):
@@ -20,40 +32,49 @@ def t_selection(agents):
 
     return best
 
-# mutate a DNA
 def mutation(dna):
-    return [b if r.random() < c.ga['p_mut'] else not b for b in dna]
+    mutated = ""
+
+    for b in dna:
+        if r.random() < c.ga['p_mut']: mutated += b
+        else:
+            if b == "1": mutated += "0"
+            else: mutated += "1"
+
+    return mutated
 
 # uniform crossover
 def u_crossover(dna_1, dna_2):
-    c_dna_1 = []
-    c_dna_2 = []
+    c_dna_1 = ""
+    c_dna_2 = ""
 
     for i in range(len(dna_1)):
 
         if r.random() < c.ga['p_xover']:
-            c_dna_1.append(dna_1[i])
-            c_dna_2.append(dna_2[i])
+            c_dna_1 += dna_1[i]
+            c_dna_2 += dna_2[i]
         else:
-            c_dna_1.append(dna_2[i])
-            c_dna_2.append(dna_1[i])
+            c_dna_1 += dna_2[i]
+            c_dna_2 += dna_1[i]
 
     return c_dna_1, c_dna_2
 
 # execute GA
 def execute():
-    g = Game()
+    population = init_population(c.game['n_agents'], c.l_dna)
+    g = Game(population)
+
     b_fitness = -1
-    b_gene = []
+    b_gene = ""
 
     for _ in range(c.ga['n_gen']):
         g.game_loop()
 
         if g.agents[0].fitness > b_fitness:
-            b_gene = [b for _, b in enumerate(g.agents[0].brain.dna)]
+            b_gene = g.agents[0].brain.dna
             b_fitness = g.agents[0].fitness
 
-        children_dna = []
+        children = []
 
         for __ in range(c.game['n_agents'] / 2):
             p_1 = t_selection(g.agents)
@@ -62,25 +83,20 @@ def execute():
             c_dna_1, c_dna_2 = u_crossover(g.agents[p_1].brain.dna,
                                             g.agents[p_2].brain.dna)
 
-            children_dna.append(mutation(c_dna_1))
-            children_dna.append(mutation(c_dna_2))
+            children.append(mutation(c_dna_1))
+            children.append(mutation(c_dna_2))
 
-        for i, a in enumerate(g.agents):
-            a.brain.init_weights(children_dna[i])
-            a.reset()
+        g.generation += 1
+        g.agents = [Agent(i, NNet(children[i]))
+                    for i in range(c.game['n_agents'])]
 
         for t in g.targets:
             t.reset()
 
-        g.generation += 1
-
-    # demo the best agent
-    best_agent = Agent(0, NNetwork())
-    best_agent.brain.init_weights(b_gene)
-    g.agents = [best_agent]
-    g.game_loop(True)
-
+    g.agents = [Agent(0, NNet(b_gene))]
+    g.game_loop()
     pygame.quit()
+
 
 if __name__ == '__main__':
     execute()

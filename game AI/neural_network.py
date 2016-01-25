@@ -5,21 +5,15 @@ import random as r
 import config as c
 
 class NNetwork:
-    def __init__(self):
+    def __init__(self, dna):
+        self.dna            = dna
         self.l_data         = self.get_layer_data()
-        self.n_weights      = self.get_n_weights()
-        self.weights        = []
-        self.dna            = self.gen_DNA()
-        self.init_weights(self.dna)
-
-    # generate DNA for the neural network
-    def gen_DNA(self):
-        l_dna = self.n_weights * c.nnet['p_weight']
-        return [(r.random() > 0.5) for _ in range(l_dna)]
+        self.n_weights      = c.n_weights
+        self.weights        = self.init_weights(self.dna)
 
     # initialize weights based on a given DNA
     def init_weights(self, dna):
-        self.weights = []
+        weights = []
 
         for i in range(self.n_weights):
             b_sum = 0.0
@@ -27,17 +21,19 @@ class NNetwork:
                         (i + 1) * c.nnet['p_weight']]
 
             for j, bit in enumerate(dna_slice):
-                if bit == True:
+                if bit == "1":
                     b_sum += math.pow(2.0, c.nnet['p_weight'] - j)
 
             weight = b_sum / (math.pow(2.0, c.nnet['p_weight'] + 1) - 1)
-            self.weights.append(weight)
+            weights.append(weight)
 
-    # calculate the number of weights
-    def get_n_weights(self):
-        return c.nnet['n_hl_neurons'] * (c.nnet['n_inputs'] +
-                c.nnet['n_hl_neurons'] * c.nnet['n_hidden_layers'] +
-                c.nnet['n_outputs']) + c.nnet['n_outputs']
+        return weights
+
+    # # calculate the number of weights
+    # def get_n_weights(self):
+    #     return c.nnet['n_hl_neurons'] * (c.nnet['n_inputs'] +
+    #             c.nnet['n_hl_neurons'] * c.nnet['n_hidden_layers'] +
+    #             c.nnet['n_outputs']) + c.nnet['n_outputs']
 
     # create list of number of neurons in each layer
     def get_layer_data(self):

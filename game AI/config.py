@@ -25,18 +25,26 @@ image = dict(
 
 # configuration for neural network
 nnet = dict(
-    p_weight            = 8, # precision of weights
+    p_weight            = 10, # precision of weights
     n_inputs            = 4, # number of inputs
     n_outputs           = 2, # number of outputs
-    n_hidden_layers     = 3, # number of hidden layers
-    n_hl_neurons        = 4, # number of neurons in hidden layers
+    n_hidden_layers     = 4, # number of hidden layers
+    n_hl_neurons        = 5, # number of neurons in hidden layers
     bias                = -1, # bias
     response            = 1, # response
 )
 
 # configuration for genetic algorithm
 ga = dict(
-    n_gen               = 20, # number of generations
+    n_gen               = 30, # number of generations
     p_mut               = 0.1, # probability of mutation
     p_xover             = 0.1, # probability of crossover
 )
+
+# configurations that are variables
+
+n_weights       = nnet['n_hl_neurons'] * (nnet['n_inputs'] +
+                    nnet['n_hl_neurons'] * nnet['n_hidden_layers'] +
+                    nnet['n_outputs']) + nnet['n_outputs']
+
+l_dna           = n_weights * nnet['p_weight']

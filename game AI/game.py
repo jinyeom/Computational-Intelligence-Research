@@ -10,7 +10,7 @@ from target import Target
 from neural_network import NNetwork as NNet
 
 class Game:
-    def __init__(self):
+    def __init__(self, p):
         # pygame setup
         pygame.init()
         pygame.display.set_caption(c.game['g_name'])
@@ -20,7 +20,7 @@ class Game:
 
         # game setup
         self.generation = 0
-        self.agents = [Agent(n, NNet()) for n in range(c.game['n_agents'])]
+        self.agents = [Agent(i, NNet(p[i])) for i in range(c.game['n_agents'])]
         self.targets = [Target() for _ in range(c.game['n_targets'])]
 
         # save terminal
