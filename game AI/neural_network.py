@@ -1,5 +1,4 @@
 # neural_network.py
-
 import math
 import random as r
 import config as c
@@ -7,8 +6,8 @@ import config as c
 class NNetwork:
     def __init__(self, dna):
         self.dna            = dna
-        self.l_data         = self.get_layer_data()
         self.n_weights      = c.n_weights
+        self.l_data         = self.get_layer_data()
         self.weights        = self.init_weights(self.dna)
 
     # initialize weights based on a given DNA
@@ -28,12 +27,6 @@ class NNetwork:
             weights.append(weight)
 
         return weights
-
-    # # calculate the number of weights
-    # def get_n_weights(self):
-    #     return c.nnet['n_hl_neurons'] * (c.nnet['n_inputs'] +
-    #             c.nnet['n_hl_neurons'] * c.nnet['n_hidden_layers'] +
-    #             c.nnet['n_outputs']) + c.nnet['n_outputs']
 
     # create list of number of neurons in each layer
     def get_layer_data(self):

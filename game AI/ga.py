@@ -1,5 +1,4 @@
 # ga.py
-
 import math
 import pygame
 import random as r
@@ -8,6 +7,7 @@ from agent import Agent
 from game import Game
 from neural_network import NNetwork as NNet
 
+# initialize population given number of population and length of each DNA
 def init_population(n_pop, l_dna):
     return [gen_DNA(l_dna) for _ in range(n_pop)]
 
@@ -32,6 +32,7 @@ def t_selection(agents):
 
     return best
 
+# return a mutated deep copy of a DNA
 def mutation(dna):
     mutated = ""
 
@@ -86,7 +87,7 @@ def execute():
             children.append(mutation(c_dna_1))
             children.append(mutation(c_dna_2))
 
-        g.generation += 1
+        g.gen += 1
         g.agents = [Agent(i, NNet(children[i]))
                     for i in range(c.game['n_agents'])]
 

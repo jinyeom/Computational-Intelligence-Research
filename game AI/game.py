@@ -1,12 +1,11 @@
 # game.py
-
 import pygame
 import math
 import time
 import util
 import config as c
-from agent import Agent
-from target import Target
+from agent import Agent as A
+from target import Target as T
 from neural_network import NNetwork as NNet
 
 class Game:
@@ -14,14 +13,15 @@ class Game:
         # pygame setup
         pygame.init()
         pygame.display.set_caption(c.game['g_name'])
-        self.clock = pygame.time.Clock()
-        self.display = pygame.display.set_mode(
-                (c.game['width'], c.game['height']))
+
+        self.clock      = pygame.time.Clock()
+        self.display    = pygame.display.set_mode(
+                            (c.game['width'], c.game['height']))
 
         # game setup
-        self.generation = 0
-        self.agents = [Agent(i, NNet(p[i])) for i in range(c.game['n_agents'])]
-        self.targets = [Target() for _ in range(c.game['n_targets'])]
+        self.gen        = 0
+        self.agents     = [A(i, NNet(p[i])) for i in range(c.game['n_agents'])]
+        self.targets    = [T() for _ in range(c.game['n_targets'])]
 
         # save terminal
         print "\033[?47h"

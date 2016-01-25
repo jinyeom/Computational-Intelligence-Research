@@ -1,5 +1,4 @@
 # target.py
-
 import math
 import random as r
 import config as c

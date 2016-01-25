@@ -1,19 +1,18 @@
 # agent.py
-
 import math
 import random as r
 import config as c
 
 class Agent:
     def __init__(self, number, nnet):
-        self.number = number        # agent number
-        self.brain = nnet           # neural network
-        self.fitness = 0            # fitness
-        self.t_closest = 0          # index of the closest target
-        self.speed = 0.0            # movement speed
-        self.track = [0, 0]         # [l_track, r_track]
-        self.vision = [0.0, 0.0]    # [x, y] vision
-        self.position = [0, 0]      # [x, y] position
+        self.number         = number # agent number
+        self.brain          = nnet # neural network
+        self.fitness        = 0 # fitness
+        self.t_closest      = 0 # index of the closest target
+        self.speed          = 0.0 # movement speed
+        self.track          = [0, 0] # [l_track, r_track]
+        self.vision         = [0.0, 0.0] # [x, y] vision
+        self.position       = [0, 0] # [x, y] position
         self.reset()
 
     def reset(self):
