@@ -1,46 +1,43 @@
+# ga.py
+
 import math
-import random
-import minesweeper
+import random as r
 
-# config.
-s_dna = 10          # DNA size
-s_pop = 20          # population size
-n_gen = 20          # number of generations
-p_mut = 0.1         # probability of mutation
-p_xover = 0.1       # probability of crossover
-t_game = 10000      # game execution time
+# genetic algorithm constants
+p_mutation = 0.1
+p_xover = 0.1
 
-# initialize population
-def init_population():
-    return [gen_DNA() for _ in range(n_pop)]
+# set mutation probability
+def set_p_mutation(p):
+    p_mutation = p
 
-# generate a dna
-def gen_DNA():
-    return [(random.random() > 0.5) for _ in range(s_dna)]
+def set_p_crossover(p):
+    p_xover = p
 
 # tournament selection
-def t_selection():
-
-
-
+def t_selection(population):
+    best = r.choice(population)
+    for _ in range(len(population) - 1):
+        rand = r.choice(population)
+        if rand.fitness > best.fitness:
+            best = rand
+    return best
 
 # mutate a DNA
 def mutation(dna):
-    for i in range(len(dna)):
-        if random.random() < p_mut:
-            dna[i] = not dna[i]
+    return [b if r.random() < P_MUT else not b for b in dna]
 
 # uniform crossover
 def u_crossover(dna_1, dna_2):
-    for i in range(len(dna_1)):
-        if random.random() < p_xover:
-            temp = dna_1[i]
-            dna_1[i] = dna_2[i]
-            dna_2[i] = temp
+    c_dna_1 = []
+    c_dna_2 = []
 
-# execute GA
-def execute():
-    population = init_population()
-    best = None
-    for _ in range(n_gen):
-        scores = minesweeper.gameLoop(t_game)
+    for i in range(len(dna_1)):
+        if r.random() < P_XOVER:
+            c_dna_1.append(dna_1[i])
+            c_dna_2.append(dna_2[i])
+        else:
+            c_dna_1.append(dna_2[i])
+            c_dna_2.append(dna_1[i])
+
+    return c_dna_1, c_dna_2
