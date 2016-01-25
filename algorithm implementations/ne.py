@@ -1,15 +1,13 @@
 import math
 import random
 
-# evolutionary algorithm constants
-P_WEIGHT = 7 # weight precision = 1 / 128
-
-# neural network constants
-BIAS = -1
-RESPONSE = 1
+# neural network constant
+bias = -1 # bias
+response = 1 # response
+p_weight = 7 # precision of weights
 
 class NNetwork:
-    def __init__(self, n_input, n_output, n_h_layer, n_hl_neuron):
+    def __init__(self, n_input, n_h_layer, n_hl_neuron, n_output):
         self.l_data = self.getLayerData(n_h_layer, n_hl_neuron, n_output)
         self.n_weights = n_hl_neuron * (n_input + n_hl_neuron *
                             n_h_layer + n_output) + n_output
@@ -19,13 +17,14 @@ class NNetwork:
     def init_weights(self, dna):
         weights = []
         for i in range(self.n_weights):
-            dnaSlice = dna[i * P_WEIGHT:(i + 1) * P_WEIGHT]
+            dnaSlice = dna[i * p_weight:(i + 1) * p_weight]
             b_sum = 0.0
 
             for j, bit in enumerate(dnaSlice):
                 if bit == True:
-                    b_sum += math.pow(2.0, P_WEIGHT - j)
-            weight = b_sum / (math.pow(2.0, P_WEIGHT + 1) - 1)
+                    b_sum += math.pow(2.0, p_weight - j)
+
+            weight = b_sum / (math.pow(2.0, p_weight + 1) - 1)
             weights.append(weight)
 
         return weights
@@ -36,12 +35,12 @@ class NNetwork:
         for _ in range(nHLs):
             layerData.append(nHLNs)
         layerData.append(nOuts)
+
         return layerData
 
     # recursively update the neural network
     def update(self, inputs, counter=0, l_counter=0):
-        if l_counter == len(self.l_data):
-            return inputs
+        if l_counter == len(self.l_data): return inputs
         else:
             outputs = []
             for _ in range(self.l_data[l_counter]):
@@ -49,9 +48,11 @@ class NNetwork:
                 for val in inputs:
                     netInput += self.weights[counter] * val
                     counter += 1
-                netInput += self.weights[counter] * BIAS
+
+                netInput += self.weights[counter] * bias
                 counter += 1
-                outputs.append(self.sigmoid(netInput, RESPONSE))
+                outputs.append(self.sigmoid(netInput, response))
+
             return self.update(outputs, counter, l_counter + 1)
 
     # sigmoid function
