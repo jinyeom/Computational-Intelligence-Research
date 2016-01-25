@@ -2,23 +2,21 @@ import math
 import random
 
 class NNetwork:
-    def __init__(self, n_input, n_h_layer, n_hl_neuron, n_output):
+    def __init__(self, n_i, n_hl, n_hln, n_o):
         self.bias = -1
         self.response = 1
         self.p_weight = 7
-
-        self.l_data = self.get_layer_data(n_h_layer, n_hl_neuron, n_output)
-        self.n_weights = n_hl_neuron * (n_input + n_hl_neuron *
-                            n_h_layer + n_output) + n_output
+        self.n_weights = n_hln * (n_i + n_hln * n_hl + n_o) + n_o
+        self.l_data = self.get_layer_data(n_hl, n_hln, n_o)
         self.weights = self.init_weights(self.gen_dna())
 
-    def set_bias(b):
+    def set_bias(self, b):
         self.bias = b
 
-    def set_response(r):
+    def set_response(self, r):
         self.response = r
 
-    def set_p_weight(p):
+    def set_p_weight(self, p):
         self.p_weight = p
 
     def gen_dna(self):
@@ -40,16 +38,14 @@ class NNetwork:
 
         return weights
 
-    # create list of number of neurons in each layer
-    def get_layer_data(self, n_h_layer, n_hl_neuron, n_output):
-        layerData = []
-        for _ in range(n_h_layer):
-            layerData.append(n_hl_neuron)
-        layerData.append(n_output)
+    def get_layer_data(self, n_hl, n_hln, n_o):
+        layer_data = []
+        for _ in range(n_hl):
+            layer_data.append(n_hln)
+        layer_data.append(n_o)
 
-        return layerData
+        return layer_data
 
-    # recursively update the neural network
     def update(self, inputs, counter=0, l_counter=0):
         if l_counter == len(self.l_data): return inputs
         else:
@@ -66,6 +62,5 @@ class NNetwork:
 
             return self.update(outputs, counter, l_counter + 1)
 
-    # sigmoid function
     def sigmoid(self, netInput, response):
         return 1.0 / (1.0 + math.exp(-netInput / response))

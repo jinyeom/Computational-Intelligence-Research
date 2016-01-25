@@ -1,5 +1,3 @@
-# ga.py
-
 import math
 import random as r
 
