@@ -14,7 +14,6 @@ class Game:
         # pygame setup
         pygame.init()
         pygame.display.set_caption(c.game['g_name'])
-        pygame.display.set_icon(pygame.image.load(c.image['icon']))
         self.clock = pygame.time.Clock()
         self.display = pygame.display.set_mode(
                 (c.game['width'], c.game['height']))
@@ -32,8 +31,10 @@ class Game:
 
             self.game_logic()
 
-            if i % c.game['delay'] == 0: self.update_terminal()
-            if display: self.process_graphic()
+            if i % c.game['delay'] == 0:
+                self.update_terminal()
+            if display:
+                self.process_graphic()
 
         return [a.fitness for a in self.agents]
 
@@ -54,11 +55,26 @@ class Game:
             t_img = pygame.image.load(c.image['target']).convert_alpha()
             self.display.blit(t_img, (t.position[0], t.position[1]))
 
-        for a in self.agents:
-            a_img = pygame.transform.rotate(
-                pygame.image.load(c.image['agent']).convert_alpha(),
-                a.rotation * -180 / math.pi)
-            self.display.blit(a_img, (a.position[0], a.position[1]))
+        if len(self.agents) == c.game['n_agents']:
+            for i in range(c.game['n_best']):
+                a_img = pygame.transform.rotate(
+                    pygame.image.load(c.image['best']).convert_alpha(),
+                    self.agents[i].rotation * -180 / math.pi)
+                self.display.blit(a_img, (self.agents[i].position[0],
+                                        self.agents[i].position[1]))
+
+            for i in range(c.game['n_best'], c.game['n_agents']):
+                a_img = pygame.transform.rotate(
+                    pygame.image.load(c.image['agent']).convert_alpha(),
+                    self.agents[i].rotation * -180 / math.pi)
+                self.display.blit(a_img, (self.agents[i].position[0],
+                                        self.agents[i].position[1]))
+        else:
+            for a in self.agents:
+                a_img = pygame.transform.rotate(
+                    pygame.image.load(c.image['best']).convert_alpha(),
+                                    a.rotation * -180 / math.pi)
+                self.display.blit(a_img, (a.position[0], a.position[1]))
 
         pygame.display.update()
         self.clock.tick(c.game['fps'])
@@ -78,3 +94,4 @@ class Game:
 if __name__ == '__main__':
     g = Game()
     g.game_loop(True)
+    pygame.quit()

@@ -6,6 +6,7 @@ import random as r
 import config as c
 from agent import Agent
 from game import Game
+from neural_network import NNetwork
 
 # tournament selection (returns the best index)
 def t_selection(agents):
