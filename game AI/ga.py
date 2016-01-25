@@ -4,6 +4,7 @@ import math
 import pygame
 import random as r
 import config as c
+from agent import Agent
 from game import Game
 
 # tournament selection (returns the best index)
