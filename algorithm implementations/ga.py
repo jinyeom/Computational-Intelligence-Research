@@ -28,7 +28,7 @@ class GA:
         self.l_dna = n
 
     def gen_dna(self):
-        return [r.random() < 0.5 for _ in range(self.l_dna)]
+        return [r.random() > 0.5 for _ in range(self.l_dna)]
 
     def init_population(self):
         return [self.gen_dna() for _ in range(self.n_pop)]

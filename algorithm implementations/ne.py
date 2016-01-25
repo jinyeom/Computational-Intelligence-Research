@@ -1,26 +1,37 @@
 import math
 import random
 
-# neural network constant
-bias = -1 # bias
-response = 1 # response
-p_weight = 7 # precision of weights
-
 class NNetwork:
     def __init__(self, n_input, n_h_layer, n_hl_neuron, n_output):
+        self.bias = -1
+        self.response = 1
+        self.p_weight = 7
+
         self.l_data = self.get_layer_data(n_h_layer, n_hl_neuron, n_output)
         self.n_weights = n_hl_neuron * (n_input + n_hl_neuron *
                             n_h_layer + n_output) + n_output
-        self.weights = self.init_weights()
+        self.weights = self.init_weights(self.gen_dna())
 
-    # initialize weights based on DNA
+    def set_bias(b):
+        self.bias = b
+
+    def set_response(r):
+        self.response = r
+
+    def set_p_weight(p):
+        self.p_weight = p
+
+    def gen_dna(self):
+        l_dna = self.n_weights * self.p_weight
+        return [(r.random() > 0.5) for _ in range(l_dna)]
+
     def init_weights(self, dna):
         weights = []
         for i in range(self.n_weights):
-            dnaSlice = dna[i * p_weight:(i + 1) * p_weight]
+            dna_slice = dna[i * self.p_weight:(i + 1) * self.p_weight]
             b_sum = 0.0
 
-            for j, bit in enumerate(dnaSlice):
+            for j, bit in enumerate(dna_slice):
                 if bit == True:
                     b_sum += math.pow(2.0, p_weight - j)
 
@@ -30,11 +41,11 @@ class NNetwork:
         return weights
 
     # create list of number of neurons in each layer
-    def get_layer_data(self, nHLs, nHLNs, nOuts):
+    def get_layer_data(self, n_h_layer, n_hl_neuron, n_output):
         layerData = []
-        for _ in range(nHLs):
-            layerData.append(nHLNs)
-        layerData.append(nOuts)
+        for _ in range(n_h_layer):
+            layerData.append(n_hl_neuron)
+        layerData.append(n_output)
 
         return layerData
 
