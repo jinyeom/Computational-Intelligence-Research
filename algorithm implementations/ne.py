@@ -8,7 +8,7 @@ p_weight = 7 # precision of weights
 
 class NNetwork:
     def __init__(self, n_input, n_h_layer, n_hl_neuron, n_output):
-        self.l_data = self.getLayerData(n_h_layer, n_hl_neuron, n_output)
+        self.l_data = self.get_layer_data(n_h_layer, n_hl_neuron, n_output)
         self.n_weights = n_hl_neuron * (n_input + n_hl_neuron *
                             n_h_layer + n_output) + n_output
         self.weights = self.init_weights()
@@ -30,7 +30,7 @@ class NNetwork:
         return weights
 
     # create list of number of neurons in each layer
-    def getLayerData(self, nHLs, nHLNs, nOuts):
+    def get_layer_data(self, nHLs, nHLNs, nOuts):
         layerData = []
         for _ in range(nHLs):
             layerData.append(nHLNs)
