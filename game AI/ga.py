@@ -1,17 +1,21 @@
 # ga.py
 
 import math
+import pygame
 import random as r
 import config as c
 from game import Game
 
-# tournament selection
+# tournament selection (returns the best index)
 def t_selection(agents):
-    best = r.choice(agents)
+    best = r.randrange(len(agents))
+
     for _ in range(len(agents) - 1):
-        rand = r.choice(agents)
-        if rand.fitness > best.fitness:
+        rand = r.randrange(len(agents))
+
+        if agents[rand].fitness > agents[best].fitness:
             best = rand
+
     return best
 
 # mutate a DNA
@@ -24,6 +28,7 @@ def u_crossover(dna_1, dna_2):
     c_dna_2 = []
 
     for i in range(len(dna_1)):
+
         if r.random() < c.ga['p_xover']:
             c_dna_1.append(dna_1[i])
             c_dna_2.append(dna_2[i])
@@ -43,14 +48,17 @@ def execute():
         g.game_loop()
 
         if g.agents[0].fitness > b_fitness:
-            b_gene = g.agents[0].brain.dna
+            b_gene = [b for _, b in enumerate(g.agents[0].brain.dna)]
+            b_fitness = g.agents[0].fitness
 
         children_dna = []
+
         for __ in range(c.game['n_agents'] / 2):
             p_1 = t_selection(g.agents)
             p_2 = t_selection(g.agents)
 
-            c_dna_1, c_dna_2 = u_crossover(p_1.brain.dna, p_2.brain.dna)
+            c_dna_1, c_dna_2 = u_crossover(g.agents[p_1].brain.dna,
+                                            g.agents[p_2].brain.dna)
 
             children_dna.append(mutation(c_dna_1))
             children_dna.append(mutation(c_dna_2))
@@ -64,7 +72,12 @@ def execute():
 
         g.generation += 1
 
-    # g.game_loop(True)
+    # demo the best agent
+    best_agent = Agent(0, NNetwork())
+    best_agent.brain.init_weights(b_gene)
+    g.agents = [best_agent]
+    g.game_loop(True)
+
     pygame.quit()
 
 if __name__ == '__main__':

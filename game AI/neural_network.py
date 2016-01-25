@@ -6,10 +6,10 @@ import config as c
 
 class NNetwork:
     def __init__(self):
-        self.l_data = self.get_layer_data()
-        self.n_weights = self.get_n_weights()
-        self.weights = []
-        self.dna = self.gen_DNA()
+        self.l_data         = self.get_layer_data()
+        self.n_weights      = self.get_n_weights()
+        self.weights        = []
+        self.dna            = self.gen_DNA()
         self.init_weights(self.dna)
 
     # generate DNA for the neural network
