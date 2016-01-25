@@ -8,8 +8,9 @@ class NNetwork:
     def __init__(self):
         self.l_data = self.get_layer_data()
         self.n_weights = self.get_n_weights()
+        self.weights = []
         self.dna = self.gen_DNA()
-        self.weights = self.init_weights(self.dna)
+        self.init_weights(self.dna)
 
     # generate DNA for the neural network
     def gen_DNA(self):
@@ -18,21 +19,19 @@ class NNetwork:
 
     # initialize weights based on a given DNA
     def init_weights(self, dna):
-        weights = []
+        self.weights = []
 
         for i in range(self.n_weights):
             b_sum = 0.0
-            dnaSlice = dna[i * c.nnet['p_weight']:
+            dna_slice = dna[i * c.nnet['p_weight']:
                         (i + 1) * c.nnet['p_weight']]
 
-            for j, bit in enumerate(dnaSlice):
+            for j, bit in enumerate(dna_slice):
                 if bit == True:
                     b_sum += math.pow(2.0, c.nnet['p_weight'] - j)
 
             weight = b_sum / (math.pow(2.0, c.nnet['p_weight'] + 1) - 1)
-            weights.append(weight)
-
-        return weights
+            self.weights.append(weight)
 
     # calculate the number of weights
     def get_n_weights(self):

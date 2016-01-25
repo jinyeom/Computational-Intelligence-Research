@@ -7,9 +7,9 @@ game = dict(
     g_name              = "GAME",       # game name
     g_time              = 10000,        # game time
     fps                 = 60,           # frame per second
-    delay               = 60,           # terminal update delay
-    n_agents            = 20,           # number of agents
-    n_targets           = 40,           # number of targets
+    delay               = 20,           # terminal update delay
+    n_agents            = 10,           # number of agents
+    n_targets           = 10,           # number of targets
     s_agent             = 28,           # size of an agent
     s_target            = 2,            # size of a target
     r_min               = -0.3,         # minimum rotation rate
@@ -37,6 +37,6 @@ nnet = dict(
 # configuration for genetic algorithm
 ga = dict(
     n_gen               = 20,           # number of generations
-    p_mut               = 0.1,          # probability of mutation
-    p_xover             = 0.1,          # probability of crossover
+    p_mut               = 0.2,          # probability of mutation
+    p_xover             = 0.2,          # probability of crossover
 )

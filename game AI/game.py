@@ -20,6 +20,7 @@ class Game:
                 (c.game['width'], c.game['height']))
 
         # game setup
+        self.generation = 0
         self.agents = [Agent(n, NNet()) for n in range(c.game['n_agents'])]
         self.targets = [Target() for _ in range(c.game['n_targets'])]
 
@@ -36,7 +37,6 @@ class Game:
             if display:
                 self.process_graphic()
 
-        pygame.quit()
         return [a.fitness for a in self.agents]
 
     def game_logic(self):
@@ -66,8 +66,9 @@ class Game:
         self.clock.tick(c.game['fps'])
 
     def update_terminal(self):
-        print "\033[2J\033[H"
-        print "\t" + c.game['g_name'],
+        print "\033[2J\033[H",
+        print c.game['g_name'],
+        print "\tGEN.: " + str(self.generation),
         print "\tTIME: " + str(time.clock()) + '\n'
 
         for a in self.agents:

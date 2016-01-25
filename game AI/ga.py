@@ -59,7 +59,13 @@ def execute():
             a.brain.init_weights(children_dna[i])
             a.reset()
 
-    g.game_loop(True)
+        for t in g.targets:
+            t.reset()
+
+        g.generation += 1
+
+    # g.game_loop(True)
+    pygame.quit()
 
 if __name__ == '__main__':
     execute()
