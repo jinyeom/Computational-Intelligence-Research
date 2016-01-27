@@ -9,9 +9,12 @@ char mutate(char ch) {
     char m_ch;
 
     m_ch=0x00;
-    for i=0;
 
-    return
+    for(i=0; i<8; i++) {
+        m_ch += 2 **
+    }
+
+    return ch
 }
 
 int main() {

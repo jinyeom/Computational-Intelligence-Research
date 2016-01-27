@@ -2,7 +2,7 @@ import math
 import random as r
 
 class GA:
-    def __init__(self, n_gen, n_pop, n_mut, n_xover, l_dna):
+    def __init__(self, n_gen, n_pop, p_mut, p_xover, l_dna):
         self.n_gen = n_gen
         self.n_pop = n_pop
         self.p_mut = p_mut
@@ -35,18 +35,19 @@ class GA:
         return dna
 
     def init_population(self):
-        return [self.gen_dna() for _ in range(self.n_pop)]
+        return [self.gen_DNA() for _ in range(self.n_pop)]
 
-    def t_selection(self, fitness):
-        best = r.choice(self.population)
-        for _ in range(n_pop - 1):
-            rand = r.choice(self.population)
-            if fitness(rand) > fitness(best):
+    def t_selection(self, scores):
+        best = r.randrange(self.n_pop)
+        for _ in range(self.n_pop - 1):
+            rand = r.randrange(self.n_pop)
+            if scores[rand] > scores[best]:
                 best = rand
 
+        # return the index
         return best
 
-    def mutation(dna):
+    def mutation(self, dna):
         mutated = ""
 
         for b in dna:
@@ -57,7 +58,7 @@ class GA:
 
         return mutated
 
-    def u_crossover(dna_1, dna_2):
+    def u_crossover(self, dna_1, dna_2):
         c_dna_1 = ""
         c_dna_2 = ""
 
@@ -71,3 +72,18 @@ class GA:
                 c_dna_2 += dna_1[i]
 
         return c_dna_1, c_dna_2
+
+    def to_decimal(self, dna):
+        d_num = 0
+
+        for i, b in enumerate(dna):
+            if b == "1": d_num += 2 ** i
+
+        return d_num
+
+    def in_context(self, x_min, x_max, d_num, l_dna):
+        r_min = 0.0
+        r_max = 2 ** l_dna - 1
+        precision = (x_max - x_min) / (r_max - r_min)
+
+        return x_min + d_num * precision
