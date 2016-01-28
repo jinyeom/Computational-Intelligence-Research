@@ -94,6 +94,6 @@ class Game:
             print "FITN.:" + repr(a.fitness).rjust(5)
 
 if __name__ == '__main__':
-    g = Game()
-    g.game_loop(True)
+    g = Game(["0000"])
+    g.game_loop(True, True)
     pygame.quit()
