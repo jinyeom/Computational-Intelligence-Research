@@ -26,10 +26,10 @@ class Game:
         # save terminal
         print "\033[?47h"
 
-    def game_loop(self, display=False):
+    def game_loop(self, display=False, manual=False):
         for i in range(c.game['g_time']):
 
-            self.game_logic()
+            self.game_logic(manual)
 
             if i % c.game['delay'] == 0:
                 self.update_terminal()
@@ -38,9 +38,11 @@ class Game:
 
         return [a.fitness for a in self.agents]
 
-    def game_logic(self):
+    def game_logic(self, manual):
         for a in self.agents:
-            a.update(self.targets)
+
+            if manual: a.control()
+            else: a.update(self.targets)
 
             if a.check_collision(self.targets) != -1:
                 self.targets[a.t_closest].reset()

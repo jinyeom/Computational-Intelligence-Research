@@ -1,5 +1,6 @@
 # agent.py
 import math
+import pygame
 import random as r
 import config as c
 
@@ -20,6 +21,48 @@ class Agent:
         self.rotation = r.random()
         self.position = [r.randrange(c.game['width']),
                         r.randrange(c.game['height'])]
+
+    def control(self):
+        keys = pygame.key.get_pressed()
+
+        if keys[K_LEFT]:
+            self.tracks[0] -= 0.05
+            self.tracks[1] += 0.05
+
+        if keys[K_RIGHT]:
+            self.tracks[0] += 0.05
+            self.tracks[1] -= 0.05
+
+        # define rotation rate
+        r_rotation = self.track[0] - self.track[1]
+        if r_rotation < c.game['r_min']:
+            r_rotation = c.game['r_min']
+        elif r_rotation > c.game['r_max']:
+            r_rotation = c.game['r_max']
+
+        # update rotation
+        self.rotation += r_rotation
+
+        # update speed
+        self.speed = self.track[0] + self.track[1]
+
+        # update vision
+        self.vision[0] = -math.sin(self.rotation)
+        self.vision[1] = math.cos(self.rotation)
+
+        # update position
+        self.position[0] += self.vision[0] * self.speed
+        self.position[1] += self.vision[1] * self.speed
+
+        # wrap around window limits
+        if self.position[0] > c.game['width']:
+            self.position[0] = 0.0
+        if self.position[0] < 0.0:
+            self.position[0] = c.game['width']
+        if self.position[1] > c.game['height']:
+            self.position[1] = 0.0
+        if self.position[1] < 0.0:
+            self.position[1] = c.game['height']
 
     def update(self, targets):
         # get vector to closest mine

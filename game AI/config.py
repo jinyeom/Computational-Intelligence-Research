@@ -39,6 +39,7 @@ ga = dict(
     n_gen               = 30, # number of generations
     p_mut               = 0.1, # probability of mutation
     p_xover             = 0.1, # probability of crossover
+    p_select            = 0.5, # probability of selection
 )
 
 # configurations that are variables

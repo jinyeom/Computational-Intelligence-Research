@@ -2,7 +2,7 @@ import math
 from ga import GA
 
 n_gen = 500
-n_pop = 100
+n_pop = 10
 p_mut = 0.3
 p_xover = 0.3
 p_weight = 7
@@ -16,9 +16,11 @@ def f2(x1, x2):
             (5. / math.pi) * x1 - 6.) ** 2 + 10. * (1 - 1 / (8 * math.pi)) *
              math.cos(x1) + 10.)
 
+def f3()
+
 
 # TEST NUM. 1 -- f1(x)
-g = GA(n_gen, n_pop, p_mut, p_xover, l_dna)
+g = GA(10, 10, p_mut, p_xover, l_dna)
 
 b_gene = ""
 b_fitness = 999999

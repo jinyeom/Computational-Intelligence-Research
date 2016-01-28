@@ -49,14 +49,15 @@ def u_crossover(dna_1, dna_2):
     c_dna_1 = ""
     c_dna_2 = ""
 
-    for i in range(len(dna_1)):
-
-        if r.random() < c.ga['p_xover']:
-            c_dna_1 += dna_1[i]
-            c_dna_2 += dna_2[i]
-        else:
-            c_dna_1 += dna_2[i]
-            c_dna_2 += dna_1[i]
+    for i in range(c.n_weights):
+        for j in range(c.nnet['p_weight']):
+            if r.random() < c.ga['p_xover']:
+                c_dna_1 += dna_1[i * c.nnet['p_weight'] + j:
+                                (i + 1) * c.nnet['p_weight']]
+                c_dna_2 += dna_2[i]
+            else:
+                c_dna_1 += dna_2[i]
+                c_dna_2 += dna_1[i]
 
     return c_dna_1, c_dna_2
 
