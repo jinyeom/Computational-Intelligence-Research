@@ -27,6 +27,9 @@ class Game:
         print "\033[?47h"
 
     def game_loop(self, display=False, manual=False):
+        if manual:
+            self.agents = [Agent(0, NNet("0000"))]
+
         for i in range(c.game['g_time']):
 
             self.game_logic(manual)
@@ -39,16 +42,24 @@ class Game:
         return [a.fitness for a in self.agents]
 
     def game_logic(self, manual):
-        for a in self.agents:
-
-            if manual: a.control()
-            else: a.update(self.targets)
+        if manual:
+            self.agents[0].control()
 
             if a.check_collision(self.targets) != -1:
                 self.targets[a.t_closest].reset()
                 a.fitness += 1
 
-        self.agents = util.quicksort(self.agents)
+        else:
+            for a in self.agents:
+
+
+                else: a.update(self.targets)
+
+                if a.check_collision(self.targets) != -1:
+                    self.targets[a.t_closest].reset()
+                    a.fitness += 1
+
+            self.agents = util.quicksort(self.agents)
 
     def process_graphic(self):
         self.display.fill((0xff, 0xff, 0xff))
