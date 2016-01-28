@@ -11,7 +11,7 @@ class Agent:
         self.fitness        = 0 # fitness
         self.t_closest      = 0 # index of the closest target
         self.speed          = 0.0 # movement speed
-        self.track          = [0, 0] # [l_track, r_track]
+        self.track          = [2., 2.] # [l_track, r_track]
         self.vision         = [0.0, 0.0] # [x, y] vision
         self.position       = [0, 0] # [x, y] position
         self.reset()
@@ -23,15 +23,18 @@ class Agent:
                         r.randrange(c.game['height'])]
 
     def control(self):
-        keys = pygame.key.get_pressed()
+        for event in pygame.event.get():
+            if event.type == KEYDOWN:
+                if event.key == K_RIGHT:
+                    self.track[0] += 0.01
+                    self.track[1] -= 0.01
 
-        if keys[K_LEFT]:
-            self.tracks[0] -= 0.05
-            self.tracks[1] += 0.05
+                elif event.key == K_LEFT:
+                    self.track[0] -= 0.01
+                    self.track[1] += 0.01
 
-        if keys[K_RIGHT]:
-            self.tracks[0] += 0.05
-            self.tracks[1] -= 0.05
+            if event.type == KEYUP:
+                self.track = [c.game['l_track'], c.game['r_track']]
 
         # define rotation rate
         r_rotation = self.track[0] - self.track[1]

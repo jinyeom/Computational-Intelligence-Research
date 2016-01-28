@@ -12,6 +12,8 @@ game = dict(
     n_targets           = 10, # number of targets
     s_agent             = 28, # size of an agent
     s_target            = 2, # size of a target
+    l_track             = 2., # default speed of left track
+    r_track             = 2., # default speed of right track
     r_min               = -0.3, # minimum rotation rate
     r_max               = 0.3, # maximum rotation rate
 )
