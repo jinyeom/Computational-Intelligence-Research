@@ -45,15 +45,14 @@ class Game:
         if manual:
             self.agents[0].control()
 
-            if a.check_collision(self.targets) != -1:
-                self.targets[a.t_closest].reset()
-                a.fitness += 1
+            if self.agents[0].check_collision(self.targets) != -1:
+                self.targets[self.agents[0].t_closest].reset()
+                self.agents[0].fitness += 1
 
         else:
             for a in self.agents:
 
-
-                else: a.update(self.targets)
+                a.update(self.targets)
 
                 if a.check_collision(self.targets) != -1:
                     self.targets[a.t_closest].reset()
