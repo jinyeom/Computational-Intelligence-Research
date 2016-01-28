@@ -24,16 +24,16 @@ class Agent:
 
     def control(self):
         for event in pygame.event.get():
-            if event.type == KEYDOWN:
-                if event.key == K_RIGHT:
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RIGHT:
                     self.track[0] += 0.01
                     self.track[1] -= 0.01
 
-                elif event.key == K_LEFT:
+                elif event.key == pygame.K_LEFT:
                     self.track[0] -= 0.01
                     self.track[1] += 0.01
 
-            if event.type == KEYUP:
+            if event.type == pygame.KEYUP:
                 self.track = [c.game['l_track'], c.game['r_track']]
 
         # define rotation rate

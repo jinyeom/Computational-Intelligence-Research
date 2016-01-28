@@ -9,7 +9,7 @@ from target import Target as T
 from neural_network import NNetwork as NNet
 
 class Game:
-    def __init__(self, p=["0000"], manual=False):
+    def __init__(self, p=["0000"], manual=True):
         # pygame setup
         pygame.init()
         pygame.display.set_caption(c.game['g_name'])
@@ -20,7 +20,7 @@ class Game:
 
         # game setup
         if manual:
-            self.agents = [A(0, NNet(p[0])]
+            self.agents = [A(0, NNet(p[0]))]
 
         else:
             self.agents = [A(i, NNet(p[i])) for i in range(c.game['n_agents'])]
@@ -31,7 +31,7 @@ class Game:
         # save terminal
         print "\033[?47h"
 
-    def game_loop(self, display=False, manual=False):
+    def game_loop(self, display=True, manual=True):
         for i in range(c.game['g_time']):
 
             self.game_logic(manual)
@@ -99,6 +99,6 @@ class Game:
             print "FITN.:" + repr(a.fitness).rjust(5)
 
 if __name__ == '__main__':
-    g = Game(["0000"])
-    g.game_loop(True, True)
+    g = Game()
+    g.game_loop()
     pygame.quit()
