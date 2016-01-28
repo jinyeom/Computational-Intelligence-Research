@@ -36,10 +36,8 @@ class Game:
 
             self.game_logic(manual)
 
-            if i % c.game['delay'] == 0:
-                self.update_terminal()
-            if display:
-                self.process_graphic()
+            if i % c.game['delay'] == 0: self.update_terminal()
+            if display: self.process_graphic()
 
         return [a.fitness for a in self.agents]
 

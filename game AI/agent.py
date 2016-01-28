@@ -29,19 +29,25 @@ class Agent:
                     self.track[0] += 0.01
                     self.track[1] -= 0.01
 
+                    if self.track[0] >= c.game['l_track'] + c.game['r_max']/2:
+                        self.track[0] = c.game['l_track'] + c.game['r_max']/2
+                    if self.track[1] <= c.game['r_track'] + c.game['r_min']/2:
+                        self.track[1] = c.game['r_track'] + c.game['r_min']/2
+
                 elif event.key == pygame.K_LEFT:
                     self.track[0] -= 0.01
                     self.track[1] += 0.01
+
+                    if self.track[0] <= c.game['l_track'] + c.game['r_min']/2:
+                        self.track[0] = c.game['l_track'] + c.game['r_min']/2
+                    if self.track[1] >= c.game['r_track'] + c.game['r_max']/2:
+                        self.track[1] = c.game['r_track'] + c.game['r_max']/2
 
             if event.type == pygame.KEYUP:
                 self.track = [c.game['l_track'], c.game['r_track']]
 
         # define rotation rate
         r_rotation = self.track[0] - self.track[1]
-        if r_rotation < c.game['r_min']:
-            r_rotation = c.game['r_min']
-        elif r_rotation > c.game['r_max']:
-            r_rotation = c.game['r_max']
 
         # update rotation
         self.rotation += r_rotation
