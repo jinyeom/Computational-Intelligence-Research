@@ -34,12 +34,46 @@ class Game:
     def game_loop(self, display=True, manual=True):
         for i in range(c.game['g_time']):
 
+            self.game_test()
             self.game_logic(manual)
 
             if i % c.game['delay'] == 0: self.update_terminal()
             if display: self.process_graphic()
 
         return [a.fitness for a in self.agents]
+
+    def game_test(self):
+        self.agents = [A(0, NNet(p[0]))]
+        self.agents[0].position = [0, 0]
+        self.agents[0].track = [0, 0]
+
+        for _ in range(c.game['t_time'] / 10):
+            self.agents[0].track = [2., 2.]
+            self.agents[0].control()
+
+        for _ in range(c.game['t_time'] / 10):
+            self.agents[0].track = [2.05, 1.95]
+            self.agents[0].control()
+
+        for _ in range(c.game['t_time'] / 10):
+            self.agents[0].track = [2.1, 1.9]
+            self.agents[0].control()
+
+        for _ in range(c.game['t_time'] / 10):
+            self.agents[0].track = [2.15, 1.85]
+            self.agents[0].control()
+
+        for _ in range(c.game['t_time'] / 10):
+            self.agents[0].track = [1.95, 2.05]
+            self.agents[0].control()
+
+        for _ in range(c.game['t_time'] / 10):
+            self.agents[0].track = [1.9, 2.1]
+            self.agents[0].control()
+
+        for _ in range(c.game['t_time'] / 10):
+            self.agents[0].track = [1.85, 2.15]
+            self.agents[0].control()
 
     def game_logic(self, manual):
         for a in self.agents:

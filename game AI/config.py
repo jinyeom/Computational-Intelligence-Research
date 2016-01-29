@@ -6,6 +6,7 @@ game = dict(
     height              = 400, # game height
     g_name              = "GAME", # game name
     g_time              = 10000, # game time
+    t_time              = 5000, # game testing time
     fps                 = 60, # frame per second
     delay               = 20, # terminal update delay
     n_best              = 5, # number of best agents
