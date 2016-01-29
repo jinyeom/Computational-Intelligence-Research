@@ -3,7 +3,7 @@
 #include <math.h>
 
 #define L_DNA 8
-#define P_P1_XOVER 50
+#define P_P1_XOVER 20
 #define P_P2_XOVER 20
 #define P_MUTATION 20
 
@@ -14,7 +14,7 @@ void p1_xover(unsigned char* p1, unsigned char* p2)
     srand((unsigned) time(NULL));
 
     for(i = 0x00; i < L_DNA &&
-        rand() % 100 < P_P1_XOVER; i++);
+        rand() % 100 >= P_P1_XOVER; i++);
 
     s_p1 = *p1;
     s_p1 <<= L_DNA - i;
