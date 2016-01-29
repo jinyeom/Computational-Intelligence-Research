@@ -43,9 +43,9 @@ class Game:
 
     def game_test(self):
         self.agents = [A(0, NNet("0000"))]
-        self.agents[0].position = [c.game['width']/2, 0]
+        self.agents[0].position = [c.game['width']/2, c.game['height']]
         self.agents[0].track = [0, 0]
-        self.agents[0].rotation = 0.0
+        self.agents[0].rotation = math.pi
 
         for i in range(c.game['t_time'] / 10):
             self.agents[0].track = [1., 1.]
@@ -54,9 +54,9 @@ class Game:
             if i % c.game['delay'] == 0: self.update_terminal()
             self.process_graphic()
 
-        self.agents[0].position = [c.game['width']/2, 0]
+        self.agents[0].position = [c.game['width']/2, c.game['height']]
         self.agents[0].track = [0, 0]
-        self.agents[0].rotation = 0.0
+        self.agents[0].rotation = math.pi
 
         for i in range(c.game['t_time'] / 10):
             self.agents[0].track = [1.01, 0.99]
@@ -65,9 +65,9 @@ class Game:
             if i % c.game['delay'] == 0: self.update_terminal()
             self.process_graphic()
 
-        self.agents[0].position = [c.game['width']/2, 0]
+        self.agents[0].position = [c.game['width']/2, c.game['height']]
         self.agents[0].track = [0, 0]
-        self.agents[0].rotation = 0.0
+        self.agents[0].rotation = math.pi
 
         for i in range(c.game['t_time'] / 10):
             self.agents[0].track = [1.02, 0.98]
@@ -76,9 +76,9 @@ class Game:
             if i % c.game['delay'] == 0: self.update_terminal()
             self.process_graphic()
 
-        self.agents[0].position = [c.game['width']/2, 0]
+        self.agents[0].position = [c.game['width']/2, c.game['height']]
         self.agents[0].track = [0, 0]
-        self.agents[0].rotation = 0.0
+        self.agents[0].rotation = math.pi
 
         for i in range(c.game['t_time'] / 10):
             self.agents[0].track = [1.03, 0.97]
@@ -87,9 +87,9 @@ class Game:
             if i % c.game['delay'] == 0: self.update_terminal()
             self.process_graphic()
 
-        self.agents[0].position = [c.game['width']/2, 0]
+        self.agents[0].position = [c.game['width']/2, c.game['height']]
         self.agents[0].track = [0, 0]
-        self.agents[0].rotation = 0.0
+        self.agents[0].rotation = math.pi
 
         for i in range(c.game['t_time'] / 10):
             self.agents[0].track = [1.04, 0.96]
@@ -98,9 +98,9 @@ class Game:
             if i % c.game['delay'] == 0: self.update_terminal()
             self.process_graphic()
 
-        self.agents[0].position = [c.game['width']/2, 0]
+        self.agents[0].position = [c.game['width']/2, c.game['height']]
         self.agents[0].track = [0, 0]
-        self.agents[0].rotation = 0.0
+        self.agents[0].rotation = math.pi
 
         for i in range(c.game['t_time'] / 10):
             self.agents[0].track = [0.99, 1.01]
@@ -109,9 +109,9 @@ class Game:
             if i % c.game['delay'] == 0: self.update_terminal()
             self.process_graphic()
 
-        self.agents[0].position = [c.game['width']/2, 0]
+        self.agents[0].position = [c.game['width']/2, c.game['height']]
         self.agents[0].track = [0, 0]
-        self.agents[0].rotation = 0.0
+        self.agents[0].rotation = math.pi
 
         for i in range(c.game['t_time'] / 10):
             self.agents[0].track = [0.98, 1.02]
@@ -120,9 +120,9 @@ class Game:
             if i % c.game['delay'] == 0: self.update_terminal()
             self.process_graphic()
 
-        self.agents[0].position = [c.game['width']/2, 0]
+        self.agents[0].position = [c.game['width']/2, c.game['height']]
         self.agents[0].track = [0, 0]
-        self.agents[0].rotation = 0.0
+        self.agents[0].rotation = math.pi
 
         for i in range(c.game['t_time'] / 10):
             self.agents[0].track = [0.97, 1.03]
@@ -131,9 +131,9 @@ class Game:
             if i % c.game['delay'] == 0: self.update_terminal()
             self.process_graphic()
 
-        self.agents[0].position = [c.game['width']/2, 0]
+        self.agents[0].position = [c.game['width']/2, c.game['height']]
         self.agents[0].track = [0, 0]
-        self.agents[0].rotation = 0.0
+        self.agents[0].rotation = math.pi
 
         for i in range(c.game['t_time'] / 10):
             self.agents[0].track = [0.96, 1.04]
