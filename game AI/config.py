@@ -16,8 +16,8 @@ game = dict(
     s_target            = 2, # size of a target
     l_track             = 2., # default speed of left track
     r_track             = 2., # default speed of right track
-    r_min               = -0.3, # minimum rotation rate
-    r_max               = 0.3, # maximum rotation rate
+    r_min               = -0.03, # minimum rotation rate
+    r_max               = 0.03, # maximum rotation rate
 )
 
 # configuration for image sources
