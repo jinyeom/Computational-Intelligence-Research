@@ -43,7 +43,7 @@ class Game:
 
     def game_test(self):
         self.agents = [A(0, NNet("0000"))]
-        self.agents[0].position = [0, 0]
+        self.agents[0].position = [c.game['width']/2, 0]
         self.agents[0].track = [0, 0]
         self.agents[0].rotation = 0.0
 
@@ -55,42 +55,56 @@ class Game:
             self.process_graphic()
 
         for i in range(c.game['t_time'] / 10):
-            self.agents[0].track = [1.05, 0.95]
+            self.agents[0].track = [1.01, 0.99]
             self.game_logic(True)
 
             if i % c.game['delay'] == 0: self.update_terminal()
             self.process_graphic()
 
         for i in range(c.game['t_time'] / 10):
-            self.agents[0].track = [1.1, 0.9]
+            self.agents[0].track = [1.02, 0.98]
             self.game_logic(True)
 
             if i % c.game['delay'] == 0: self.update_terminal()
             self.process_graphic()
 
         for i in range(c.game['t_time'] / 10):
-            self.agents[0].track = [1.15, 0.85]
+            self.agents[0].track = [1.03, 0.97]
             self.game_logic(True)
 
             if i % c.game['delay'] == 0: self.update_terminal()
             self.process_graphic()
 
         for i in range(c.game['t_time'] / 10):
-            self.agents[0].track = [0.95, 1.05]
+            self.agents[0].track = [1.04, 0.96]
             self.game_logic(True)
 
             if i % c.game['delay'] == 0: self.update_terminal()
             self.process_graphic()
 
         for i in range(c.game['t_time'] / 10):
-            self.agents[0].track = [0.9, 1.1]
+            self.agents[0].track = [0.99, 1.01]
             self.game_logic(True)
 
             if i % c.game['delay'] == 0: self.update_terminal()
             self.process_graphic()
 
         for i in range(c.game['t_time'] / 10):
-            self.agents[0].track = [0.85, 1.15]
+            self.agents[0].track = [0.98, 1.02]
+            self.game_logic(True)
+
+            if i % c.game['delay'] == 0: self.update_terminal()
+            self.process_graphic()
+
+        for i in range(c.game['t_time'] / 10):
+            self.agents[0].track = [0.97, 1.03]
+            self.game_logic(True)
+
+            if i % c.game['delay'] == 0: self.update_terminal()
+            self.process_graphic()
+
+        for i in range(c.game['t_time'] / 10):
+            self.agents[0].track = [0.96, 1.04]
             self.game_logic(True)
 
             if i % c.game['delay'] == 0: self.update_terminal()
