@@ -16,6 +16,11 @@ void p1_xover(unsigned char* p1, unsigned char* p2)
     for(i = 0x00; i < L_DNA &&
         rand() % 100 >= P_P1_XOVER; i++);
 
+    if(i == 0)
+    {
+        return;
+    }
+
     s_p1 = *p1;
     s_p1 <<= L_DNA - i;
     s_p1 >>= L_DNA - i;
@@ -32,13 +37,43 @@ void p1_xover(unsigned char* p1, unsigned char* p2)
 
     *p1 += s_p2;
     *p2 += s_p1;
-
-    printf("%x\n", i);
 }
 
 void p2_xover(unsigned char* p1, unsigned char* p2)
 {
+    unsigned char i_1, i_2, s_p1, s_p2;
 
+    srand((unsigned) time(NULL));
+
+    for(i_1 = 0x00; i_1 < L_DNA &&
+        rand() % 100 >= P_P2_XOVER; i_1++);
+
+    for(i_2 = i_1; i_2 < L_DNA &&
+        rand() % 100 >= P_P2_XOVER; i_2++);
+
+    printf("i_1 = %x; i_2 = %x;\n", i_1, i_2);
+
+
+    if(i_1 == i_2)
+    {
+        return;
+    }
+
+    s_p1 = *p1;
+    s_p1 <<= L_DNA - i_2;
+    s_p1 >>= L_DNA - i_2 + i_1;
+    s_p1 <<= i_1;
+
+    s_p2 = *p2;
+    s_p2 <<= L_DNA - i_2;
+    s_p2 >>= L_DNA - i_2 + i_1;
+    s_p2 <<= i_1;
+
+    *p1 ^= s_p1;
+    *p1 += s_p2;
+
+    *p2 ^= s_p2;
+    *p2 += s_p1;
 }
 
 void u_xover(unsigned char* p1, unsigned char* p2)
@@ -65,7 +100,8 @@ void mutate(unsigned char* ch)
     *ch ^= m_ch;
 }
 
-int main() {
+void test()
+{
     unsigned char dna_1, dna_2;
 
     dna_1 = 0x6D;
@@ -84,4 +120,16 @@ int main() {
     printf("dna_1 = %x\n", dna_1);
 
     printf("dna_2 = %x\n", dna_2);
+
+    p2_xover(&dna_1, &dna_2);
+
+    printf("dna_1 = %x\n", dna_1);
+
+    printf("dna_2 = %x\n", dna_2);
+}
+
+int main()
+{
+    test();
+    return 0;
 }
