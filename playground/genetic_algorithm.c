@@ -3,10 +3,11 @@
 #include <math.h>
 
 #define L_DNA 8
+#define P_MUTATION 20
 
 char mutate(char ch)
 {
-    char i, m_ch;
+    unsigned char i, m_ch;
 
     srand((unsigned)time(NULL));
 
@@ -14,7 +15,7 @@ char mutate(char ch)
 
     for(i = 0x01; i > 0x00; i <<= 1)
     {
-        if(rand() % 10 < 5)
+        if(rand() % 100 < P_MUTATION)
         {
             m_ch += i;
         }
@@ -26,7 +27,7 @@ char mutate(char ch)
 }
 
 int main() {
-    char dna, m_dna;
+    unsigned char dna, m_dna;
 
     dna = 0x5B;
     m_dna = mutate(dna);
