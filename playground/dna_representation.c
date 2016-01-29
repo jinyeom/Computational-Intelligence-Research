@@ -10,30 +10,30 @@
 */
 char mutate(char ch)
 {
-    char m_ch;                          /* char for mutation via xor    */
+    int i;
+    char c, m_ch;
 
-    srand((unsigned)time(NULL));        /* seed random number generator */
+    srand((unsigned)time(NULL));
 
-    m_ch = 0x00;                        /* m_ch originally 00000000     */
-
-    int i;                              /* iterator i                   */
-    char c;                             /* c for calculation            */
+    m_ch = 0x00;
 
     c = 0x01;
 
-    for(i = 0; i < L_DNA; i++)          /* iterate through each bit     */
+    for(i = 0; i < L_DNA; i++)
     {
-        if(rand() % 10 < 5)             /* by chance of 0.5,            */
+        if(rand() % 10 < 5)
         {
-            m_ch += c;                  /* flip a bit in m_ch           */
+            m_ch += c;
         }
 
-        c << 1;                         /* shift to the next bit        */
+        c <<= 1;
+
+        printf("c = %x\n", c);
     }
 
     printf("m_ch = %x\n", m_ch);
 
-    ch ^= m_ch;                         /* xor to mutated ch            */
+    ch ^= m_ch;
 
     return ch;
 }
@@ -44,6 +44,6 @@ int main() {
     dna = 0x5B;
 
     printf("original: %x\n", dna);
-    printf("mutated: %x\n", mutate(&dna));
+    printf("mutated: %x\n", mutate(dna));
     printf("original: %x\n", dna);
 }
