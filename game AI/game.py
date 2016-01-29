@@ -46,49 +46,49 @@ class Game:
         self.agents[0].position = [0, 0]
         self.agents[0].track = [0, 0]
 
-        for _ in range(c.game['t_time'] / 10):
+        for i in range(c.game['t_time'] / 10):
             self.agents[0].track = [2., 2.]
             self.game_logic(True)
 
             if i % c.game['delay'] == 0: self.update_terminal()
             if display: self.process_graphic()
 
-        for _ in range(c.game['t_time'] / 10):
+        for i in range(c.game['t_time'] / 10):
             self.agents[0].track = [2.05, 1.95]
             self.game_logic(True)
 
             if i % c.game['delay'] == 0: self.update_terminal()
             if display: self.process_graphic()
 
-        for _ in range(c.game['t_time'] / 10):
+        for i in range(c.game['t_time'] / 10):
             self.agents[0].track = [2.1, 1.9]
             self.game_logic(True)
 
             if i % c.game['delay'] == 0: self.update_terminal()
             if display: self.process_graphic()
 
-        for _ in range(c.game['t_time'] / 10):
+        for i in range(c.game['t_time'] / 10):
             self.agents[0].track = [2.15, 1.85]
             self.game_logic(True)
 
             if i % c.game['delay'] == 0: self.update_terminal()
             if display: self.process_graphic()
 
-        for _ in range(c.game['t_time'] / 10):
+        for i in range(c.game['t_time'] / 10):
             self.agents[0].track = [1.95, 2.05]
             self.game_logic(True)
 
             if i % c.game['delay'] == 0: self.update_terminal()
             if display: self.process_graphic()
 
-        for _ in range(c.game['t_time'] / 10):
+        for i in range(c.game['t_time'] / 10):
             self.agents[0].track = [1.9, 2.1]
             self.game_logic(True)
 
             if i % c.game['delay'] == 0: self.update_terminal()
             if display: self.process_graphic()
 
-        for _ in range(c.game['t_time'] / 10):
+        for i in range(c.game['t_time'] / 10):
             self.agents[0].track = [1.85, 2.15]
             self.game_logic(True)
 
