@@ -34,7 +34,6 @@ class Game:
     def game_loop(self, display=True, manual=True):
         for i in range(c.game['g_time']):
 
-            self.game_test()
             self.game_logic(manual)
 
             if i % c.game['delay'] == 0: self.update_terminal()
@@ -49,31 +48,52 @@ class Game:
 
         for _ in range(c.game['t_time'] / 10):
             self.agents[0].track = [2., 2.]
-            self.agents[0].control()
+            self.game_logic(True)
+
+            if i % c.game['delay'] == 0: self.update_terminal()
+            if display: self.process_graphic()
 
         for _ in range(c.game['t_time'] / 10):
             self.agents[0].track = [2.05, 1.95]
-            self.agents[0].control()
+            self.game_logic(True)
+
+            if i % c.game['delay'] == 0: self.update_terminal()
+            if display: self.process_graphic()
 
         for _ in range(c.game['t_time'] / 10):
             self.agents[0].track = [2.1, 1.9]
-            self.agents[0].control()
+            self.game_logic(True)
+
+            if i % c.game['delay'] == 0: self.update_terminal()
+            if display: self.process_graphic()
 
         for _ in range(c.game['t_time'] / 10):
             self.agents[0].track = [2.15, 1.85]
-            self.agents[0].control()
+            self.game_logic(True)
+
+            if i % c.game['delay'] == 0: self.update_terminal()
+            if display: self.process_graphic()
 
         for _ in range(c.game['t_time'] / 10):
             self.agents[0].track = [1.95, 2.05]
-            self.agents[0].control()
+            self.game_logic(True)
+
+            if i % c.game['delay'] == 0: self.update_terminal()
+            if display: self.process_graphic()
 
         for _ in range(c.game['t_time'] / 10):
             self.agents[0].track = [1.9, 2.1]
-            self.agents[0].control()
+            self.game_logic(True)
+
+            if i % c.game['delay'] == 0: self.update_terminal()
+            if display: self.process_graphic()
 
         for _ in range(c.game['t_time'] / 10):
             self.agents[0].track = [1.85, 2.15]
-            self.agents[0].control()
+            self.game_logic(True)
+
+            if i % c.game['delay'] == 0: self.update_terminal()
+            if display: self.process_graphic()
 
     def game_logic(self, manual):
         for a in self.agents:
@@ -132,5 +152,6 @@ class Game:
 
 if __name__ == '__main__':
     g = Game()
+    g.game_test()
     g.game_loop()
     pygame.quit()
