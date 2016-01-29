@@ -45,51 +45,52 @@ class Game:
         self.agents = [A(0, NNet("0000"))]
         self.agents[0].position = [0, 0]
         self.agents[0].track = [0, 0]
+        self.agents[0].rotation = 0.0
 
         for i in range(c.game['t_time'] / 10):
-            self.agents[0].track = [2., 2.]
+            self.agents[0].track = [1., 1.]
             self.game_logic(True)
 
             if i % c.game['delay'] == 0: self.update_terminal()
             self.process_graphic()
 
         for i in range(c.game['t_time'] / 10):
-            self.agents[0].track = [2.05, 1.95]
+            self.agents[0].track = [1.05, 0.95]
             self.game_logic(True)
 
             if i % c.game['delay'] == 0: self.update_terminal()
             self.process_graphic()
 
         for i in range(c.game['t_time'] / 10):
-            self.agents[0].track = [2.1, 1.9]
+            self.agents[0].track = [1.1, 0.9]
             self.game_logic(True)
 
             if i % c.game['delay'] == 0: self.update_terminal()
             self.process_graphic()
 
         for i in range(c.game['t_time'] / 10):
-            self.agents[0].track = [2.15, 1.85]
+            self.agents[0].track = [1.15, 0.85]
             self.game_logic(True)
 
             if i % c.game['delay'] == 0: self.update_terminal()
             self.process_graphic()
 
         for i in range(c.game['t_time'] / 10):
-            self.agents[0].track = [1.95, 2.05]
+            self.agents[0].track = [0.95, 1.05]
             self.game_logic(True)
 
             if i % c.game['delay'] == 0: self.update_terminal()
             self.process_graphic()
 
         for i in range(c.game['t_time'] / 10):
-            self.agents[0].track = [1.9, 2.1]
+            self.agents[0].track = [0.9, 1.1]
             self.game_logic(True)
 
             if i % c.game['delay'] == 0: self.update_terminal()
             self.process_graphic()
 
         for i in range(c.game['t_time'] / 10):
-            self.agents[0].track = [1.85, 2.15]
+            self.agents[0].track = [0.85, 1.15]
             self.game_logic(True)
 
             if i % c.game['delay'] == 0: self.update_terminal()
