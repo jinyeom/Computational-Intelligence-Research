@@ -43,7 +43,7 @@ class Game:
         return [a.fitness for a in self.agents]
 
     def game_test(self):
-        self.agents = [A(0, NNet(p[0]))]
+        self.agents = [A(0, NNet("0000"))]
         self.agents[0].position = [0, 0]
         self.agents[0].track = [0, 0]
 
