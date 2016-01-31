@@ -15,10 +15,10 @@ void p1_xover(BYTE* p1, BYTE* p2)
 
     srand((unsigned) time(NULL));
 
-    for(i = 0x00; i < L_DNA &&
+    for (i = 0x00; i < L_DNA &&
         rand() % 100 >= P_P1_XOVER; i++);
 
-    if(i == 0)
+    if (i == 0)
     {
         return;
     }
@@ -47,13 +47,13 @@ void p2_xover(BYTE* p1, BYTE* p2)
 
     srand((unsigned) time(NULL));
 
-    for(i_1 = 0x00; i_1 < L_DNA &&
+    for (i_1 = 0x00; i_1 < L_DNA &&
         rand() % 100 >= P_P2_XOVER; i_1++);
 
-    for(i_2 = i_1; i_2 < L_DNA &&
+    for (i_2 = i_1; i_2 < L_DNA &&
         rand() % 100 >= P_P2_XOVER; i_2++);
 
-    if(i_1 == i_2)
+    if (i_1 == i_2)
     {
         return;
     }
@@ -81,9 +81,9 @@ void mutate(BYTE* ch)
 
     srand((unsigned) time(NULL));
 
-    for(i = 0x01; i > 0x00; i <<= 1)
+    for (i = 0x01; i > 0x00; i <<= 1)
     {
-        if(rand() % 100 < P_MUTATION)
+        if (rand() % 100 < P_MUTATION)
         {
             m_ch += i;
         }
