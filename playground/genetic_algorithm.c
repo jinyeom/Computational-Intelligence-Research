@@ -7,9 +7,11 @@
 #define P_P2_XOVER 20
 #define P_MUTATION 20
 
-void p1_xover(unsigned char* p1, unsigned char* p2)
+typedef unsigned char BYTE;
+
+void p1_xover(BYTE* p1, BYTE* p2)
 {
-    unsigned char i, s_p1, s_p2;
+    BYTE i, s_p1, s_p2;
 
     srand((unsigned) time(NULL));
 
@@ -39,9 +41,9 @@ void p1_xover(unsigned char* p1, unsigned char* p2)
     *p2 += s_p1;
 }
 
-void p2_xover(unsigned char* p1, unsigned char* p2)
+void p2_xover(BYTE* p1, BYTE* p2)
 {
-    unsigned char i_1, i_2, s_p1, s_p2;
+    BYTE i_1, i_2, s_p1, s_p2;
 
     srand((unsigned) time(NULL));
 
@@ -50,9 +52,6 @@ void p2_xover(unsigned char* p1, unsigned char* p2)
 
     for(i_2 = i_1; i_2 < L_DNA &&
         rand() % 100 >= P_P2_XOVER; i_2++);
-
-    printf("i_1 = %x; i_2 = %x;\n", i_1, i_2);
-
 
     if(i_1 == i_2)
     {
@@ -76,18 +75,11 @@ void p2_xover(unsigned char* p1, unsigned char* p2)
     *p2 += s_p1;
 }
 
-void u_xover(unsigned char* p1, unsigned char* p2)
+void mutate(BYTE* ch)
 {
+    BYTE i, m_ch;
 
-}
-
-void mutate(unsigned char* ch)
-{
-    unsigned char i, m_ch;
-
-    srand((unsigned)time(NULL));
-
-    m_ch = 0x00;
+    srand((unsigned) time(NULL));
 
     for(i = 0x01; i > 0x00; i <<= 1)
     {
@@ -102,7 +94,7 @@ void mutate(unsigned char* ch)
 
 void test()
 {
-    unsigned char dna_1, dna_2;
+    BYTE dna_1, dna_2;
 
     dna_1 = 0x6D;
     dna_2 = 0xB1;
