@@ -7,6 +7,19 @@
 
 typedef unsigned char BYTE;
 
+/* ------------------- GENETIC ALGORITHM IMPLEMENTATION --------------------- */
+void mutation()
+{
+
+}
+
+void p1_crossover()
+{
+
+}
+
+/* -------------------------- KNIGHT'S TOUR GAME ---------------------------- */
+
 void move_knight(BYTE dna_slice, BYTE* k_x, BYTE* k_y)
 {
     switch (dna_slice)
