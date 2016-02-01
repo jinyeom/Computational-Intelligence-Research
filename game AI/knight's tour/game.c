@@ -7,10 +7,6 @@
 
 typedef unsigned char BYTE;
 
-/*   .~~~^ KNIGHT'S TOUR ^~~~.   */
-/*                               */
-
-
 void move_knight(BYTE dna_slice, BYTE* k_x, BYTE* k_y)
 {
     switch (dna_slice)
@@ -59,10 +55,12 @@ void move_knight(BYTE dna_slice, BYTE* k_x, BYTE* k_y)
 
 int game(BYTE* dna)
 {
-    int score;
+    unsigned int score;
 
-    BYTE chess_board[8];
     BYTE i, k_x, k_y;
+
+    BYTE chess_board[8] = {0x00, 0x00, 0x00, 0x00,
+                            0x00, 0x00, 0x00, 0x00};
 
     k_x = X_START;
     k_y = Y_START;
@@ -71,14 +69,17 @@ int game(BYTE* dna)
 
     for (i = 0; i < 63; i++)
     {
+        printf("x = %3d, y = %3d\n", k_x, k_y);
+
         move_knight(dna[i], &k_x, &k_y);
         chess_board[k_y] ^= k_x;
     }
 
+    score = 0;
+
     for (i = 0; i < 8; i++)
     {
         score += (unsigned int) chess_board[i];
-        printf("%d\n", score);
     }
 
     return score;
