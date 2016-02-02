@@ -8,14 +8,60 @@
 typedef unsigned char BYTE;
 
 /* ------------------- GENETIC ALGORITHM IMPLEMENTATION --------------------- */
-void mutation(BYTE* dna)
-{
 
+BYTE* gen_dna()
+{
+    BYTE dna[63] = "";
+    BYTE i, ch;
+
+    srand((unsigned) time(NULL));
+
+    for (i = 0; i < 63; i++)
+    {
+        ch = 0x01;
+        ch <<= (rand() % 8);
+
+        dna[i] = ch;
+    }
+
+    return *dna;
 }
 
-void p1_crossover(BYTE* dna)
+void mutation(BYTE* dna)
 {
+    int i, r;
 
+    srand((unsigned) time(NULL));
+
+    for (i = 0; i < 63; i++)
+    {
+        if (r = rand() % 100 < P_MUTATION)
+        {
+            if (r % 2 == 0)
+            {
+                dna[i] <<= 1;
+            }
+
+            else
+            {
+                dna[i] >>= 1;
+            }
+        }
+    }
+}
+
+void p1_crossover(BYTE* p_1, BYTE* p_2)
+{
+    int r, t;
+
+    srand((unsigned) time(NULL));
+
+    for (r = rand() % 63; r < 64; r++)
+    {
+        t = p_1[r];
+        p_1[r] = p_2[r];
+        p_2[r] = t;
+    }
 }
 
 /* -------------------------- KNIGHT'S TOUR GAME ---------------------------- */
