@@ -35,7 +35,9 @@ void mutation(BYTE* dna)
 
     for (i = 0; i < 63; i++)
     {
-        if (r = rand() % 100 < P_MUTATION)
+        r = rand() % 100;
+
+        if (r < P_MUTATION)
         {
             if (r % 2 == 0)
             {
@@ -142,6 +144,8 @@ int game(BYTE* dna)
         score += (unsigned int) chess_board[i];
     }
 
+    printf("%x\n", chess_board);
+
     return score;
 }
 
@@ -156,6 +160,8 @@ int main()
                     0x10, 0x04, 0x80, 0x20, 0x20, 0x08, 0x02, 0x04,
                     0x02, 0x80, 0x01, 0x80, 0x20, 0x40, 0x20, 0x08,
                     0x08, 0x02, 0x01, 0x20, 0x08, 0x01, 0x40};
+
+
 
     printf("score: %d\n", game(dna));
 }
