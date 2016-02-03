@@ -29,7 +29,7 @@ BYTE* gen_dna()
 
 void mutation(BYTE* dna)
 {
-    int i, r;
+    register int i, r;
 
     srand((unsigned) time(NULL));
 
@@ -54,7 +54,7 @@ void mutation(BYTE* dna)
 
 void p1_crossover(BYTE* p_1, BYTE* p_2)
 {
-    int r, t;
+    register int r, t;
 
     srand((unsigned) time(NULL));
 
