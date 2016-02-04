@@ -56,7 +56,8 @@ void mutation(BYTE* dna)
 
 void p1_crossover(BYTE* p_1, BYTE* p_2)
 {
-    register int r, t;
+    BYTE t;
+    register int r,
 
     srand((unsigned) time(NULL));
 
@@ -70,12 +71,12 @@ void p1_crossover(BYTE* p_1, BYTE* p_2)
 
 void genetic_algorithm()
 {
-    register int i;
-    int best_score;
-    BYTE dna, best_dna;
+    register int i, s;
+    int b_score;
+    BYTE dna, b_dna;
 
     BYTE *population[N_POPULATION];
-    int scores[N_POPULATION];
+    BYTE *children[N_POPULATION];
 
     for (i = 0; i < N_POPULATION; i++)
     {
@@ -85,8 +86,18 @@ void genetic_algorithm()
 
     while (best_score < 2040)
     {
+        for (i = 0; i < N_POPULATION; i++)
+        {
+            s = game(population[i]);
 
+            if (s > b_score)
+            {
+                b_score = s;
+                b_dna = population[i];
+            }
+        }
 
+        
     }
 }
 
@@ -96,44 +107,44 @@ void move_knight(BYTE dna_slice, BYTE* k_x, BYTE* k_y)
 {
     switch (dna_slice)
     {
-        case 0x01:
-            *k_x >>= 1;
-            *k_y -= 2;
+        case 0x01:          /* 00000001         */
+            *k_x >>= 1;     /* move one right   */
+            *k_y -= 2;      /* move two up      */
             break;
 
-        case 0x02:
-            *k_x >>= 2;
-            *k_y -= 1;
+        case 0x02:          /* 00000010         */
+            *k_x >>= 2;     /* move two right   */
+            *k_y -= 1;      /* move one up      */
             break;
 
-        case 0x04:
-            *k_x >>= 2;
-            *k_y += 1;
+        case 0x04:          /* 00000100         */
+            *k_x >>= 2;     /* move two right   */
+            *k_y += 1;      /* move one down    */
             break;
 
-        case 0x08:
-            *k_x >>= 1;
-            *k_y += 2;
+        case 0x08:          /* 00001000         */
+            *k_x >>= 1;     /* move one right   */
+            *k_y += 2;      /* move two down    */
             break;
 
-        case 0x10:
-            *k_x <<= 1;
-            *k_y += 2;
+        case 0x10:          /* 00010000         */
+            *k_x <<= 1;     /* move one left    */
+            *k_y += 2;      /* move two down    */
             break;
 
-        case 0x20:
-            *k_x <<= 2;
-            *k_y += 1;
+        case 0x20:          /* 00100000         */
+            *k_x <<= 2;     /* move two left    */
+            *k_y += 1;      /* move one down    */
             break;
 
-        case 0x40:
-            *k_x <<= 2;
-            *k_y -= 1;
+        case 0x40:          /* 01000000         */
+            *k_x <<= 2;     /* move two left    */
+            *k_y -= 1;      /* move one up      */
             break;
 
-        case 0x80:
-            *k_x <<= 1;
-            *k_y -= 2;
+        case 0x80:          /* 10000000         */
+            *k_x <<= 1;     /* move one left    */
+            *k_y -= 2;      /* move two up      */
             break;
     }
 }
