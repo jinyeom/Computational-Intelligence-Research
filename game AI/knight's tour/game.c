@@ -13,8 +13,8 @@ typedef unsigned char BYTE;
 
 BYTE* gen_dna()
 {
-    BYTE dna[63] = "";
     BYTE i, ch;
+    static BYTE dna[63];
 
     srand((unsigned) time(NULL));
 
@@ -26,7 +26,7 @@ BYTE* gen_dna()
         dna[i] = ch;
     }
 
-    return *dna;
+    return dna;
 }
 
 void mutation(BYTE* dna)
@@ -52,12 +52,14 @@ void mutation(BYTE* dna)
             }
         }
     }
+
+    return;
 }
 
 void p1_crossover(BYTE* p_1, BYTE* p_2)
 {
     BYTE t;
-    register int r,
+    register int r;
 
     srand((unsigned) time(NULL));
 
@@ -67,38 +69,82 @@ void p1_crossover(BYTE* p_1, BYTE* p_2)
         p_1[r] = p_2[r];
         p_2[r] = t;
     }
+
+    return;
+}
+
+int t_selection(int* scores)
+{
+    register int b, i, r;
+
+    srand((unsigned) time(NULL));
+
+    b = scores[rand() % N_POPULATION];
+
+    for (i = 0; i < N_POPULATION - 1; i++)
+    {
+        r = scores[rand() % N_POPULATION];
+
+        if (r > b)
+        {
+            b = r;
+        }
+    }
+
+    return b;
 }
 
 void genetic_algorithm()
 {
-    register int i, s;
-    int b_score;
-    BYTE dna, b_dna;
+    register int i, j, s;                       /* ints for quick accesses  */
+    int b_score;                                /* global best score        */
+    int scores[N_POPULATION];                   /* array of scores          */
 
-    BYTE *population[N_POPULATION];
-    BYTE *children[N_POPULATION];
+    BYTE b_dna[63];                             /* best dna string          */
+    BYTE *pop[N_POPULATION];                    /* array of dna pointers    */
+    BYTE *children[N_POPULATION];               /* population of next gen   */
 
-    for (i = 0; i < N_POPULATION; i++)
+    int p_1, p_2;                               /* parent 1 and 2 indices   */
+
+    for (i = 0; i < N_POPULATION; i++)          /* initialize a population  */
     {
-        dna = gen_dna();
-        population[i] = &dna;
+        pop[i] = gen_dna();
     }
 
-    while (best_score < 2040)
+    while (b_score < 2040)
     {
         for (i = 0; i < N_POPULATION; i++)
         {
-            s = game(population[i]);
+            s = game(pop[i]);
+
+            scores[i] = s;                      /* update array of scores   */
 
             if (s > b_score)
             {
                 b_score = s;
-                b_dna = population[i];
+
+                for (j = 0; j < 63; j++)        /* make a deep copy of the  */
+                {                               /* best DNA, so that it     */
+                    b_dna[j] = pop[i][j];       /* doesn't get affected by  */
+                }                               /* future processing        */
             }
         }
 
-        
+        for (i = 0; i < N_POPULATION; i += 2)
+        {
+            p_1 = t_selection(scores);          /* t_select p_1 index       */
+            p_2 = t_selection(scores);          /* t_select p_2 index       */
+
+            p1_crossover(pop[p_1], pop[p_2]);
+
+            mutation(pop[p_1]);
+            mutation(pop[p_2]);
+        }
     }
+
+    printf("%s\n", b_dna);
+
+    return;
 }
 
 /* -------------------------- KNIGHT'S TOUR GAME ---------------------------- */
@@ -147,6 +193,8 @@ void move_knight(BYTE dna_slice, BYTE* k_x, BYTE* k_y)
             *k_y -= 2;      /* move two up      */
             break;
     }
+
+    return;
 }
 
 int game(BYTE* dna)
@@ -165,11 +213,8 @@ int game(BYTE* dna)
 
     for (i = 0; i < 63; i++)
     {
-        printf("x = %3d, y = %3d\n", k_x, k_y);
         move_knight(dna[i], &k_x, &k_y);
-
         chess_board[k_y] ^= k_x;
-
     }
 
     score = 0;
@@ -187,7 +232,7 @@ void print_chess_board(BYTE* chess_board)
 
 }
 
-int main()
+void test()
 {
     // a solution
     BYTE dna[63] = {0x08, 0x10, 0x08, 0x04, 0x02, 0x04, 0x80, 0x01,
@@ -200,4 +245,9 @@ int main()
                     0x08, 0x02, 0x01, 0x20, 0x08, 0x01, 0x40};
 
     printf("score: %d\n", game(dna));
+}
+
+int main()
+{
+    genetic_algorithm();
 }
