@@ -2,8 +2,10 @@
 #include <stdlib.h>
 #include <math.h>
 
-#define X_START 0x80
-#define Y_START 0x00
+#define X_START         0x80
+#define Y_START         0x00
+#define N_POPULATION    100
+#define P_MUTATION      20
 
 typedef unsigned char BYTE;
 
@@ -63,6 +65,28 @@ void p1_crossover(BYTE* p_1, BYTE* p_2)
         t = p_1[r];
         p_1[r] = p_2[r];
         p_2[r] = t;
+    }
+}
+
+void genetic_algorithm()
+{
+    register int i;
+    int best_score;
+    BYTE dna, best_dna;
+
+    BYTE *population[N_POPULATION];
+    int scores[N_POPULATION];
+
+    for (i = 0; i < N_POPULATION; i++)
+    {
+        dna = gen_dna();
+        population[i] = &dna;
+    }
+
+    while (best_score < 2040)
+    {
+
+
     }
 }
 
@@ -131,10 +155,10 @@ int game(BYTE* dna)
     for (i = 0; i < 63; i++)
     {
         printf("x = %3d, y = %3d\n", k_x, k_y);
-
         move_knight(dna[i], &k_x, &k_y);
 
         chess_board[k_y] ^= k_x;
+
     }
 
     score = 0;
@@ -144,9 +168,12 @@ int game(BYTE* dna)
         score += (unsigned int) chess_board[i];
     }
 
-    printf("%x\n", chess_board);
-
     return score;
+}
+
+void print_chess_board(BYTE* chess_board)
+{
+
 }
 
 int main()
@@ -160,8 +187,6 @@ int main()
                     0x10, 0x04, 0x80, 0x20, 0x20, 0x08, 0x02, 0x04,
                     0x02, 0x80, 0x01, 0x80, 0x20, 0x40, 0x20, 0x08,
                     0x08, 0x02, 0x01, 0x20, 0x08, 0x01, 0x40};
-
-
 
     printf("score: %d\n", game(dna));
 }
