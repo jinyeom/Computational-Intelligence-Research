@@ -11,10 +11,9 @@ typedef unsigned char BYTE;
 
 /* ------------------- GENETIC ALGORITHM IMPLEMENTATION --------------------- */
 
-BYTE* gen_dna()
+void gen_dna(BYTE* dna)
 {
     BYTE i, ch;
-    static BYTE dna[63];
 
     srand((unsigned) time(NULL));
 
@@ -25,8 +24,6 @@ BYTE* gen_dna()
 
         dna[i] = ch;
     }
-
-    return dna;
 }
 
 void mutation(BYTE* dna)
@@ -44,12 +41,11 @@ void mutation(BYTE* dna)
             if (r % 2 == 0)
             {
                 dna[i] <<= 1;
+                return;
             }
 
-            else
-            {
-                dna[i] >>= 1;
-            }
+            dna[i] >>= 1;
+            return;
         }
     }
 
@@ -101,14 +97,15 @@ void genetic_algorithm()
     int scores[N_POPULATION];                   /* array of scores          */
 
     BYTE b_dna[63];                             /* best dna string          */
-    BYTE *pop[N_POPULATION];                    /* array of dna pointers    */
-    BYTE *children[N_POPULATION];               /* population of next gen   */
+    BYTE pop[N_POPULATION][63];                 /* array of dna pointers    */
+    BYTE children[N_POPULATION][63];            /* population of next gen   */
 
     int p_1, p_2;                               /* parent 1 and 2 indices   */
 
     for (i = 0; i < N_POPULATION; i++)          /* initialize a population  */
     {
-        pop[i] = gen_dna();
+        gen_dna(pop[i]);
+        printf("%2d: %x\n", i, *pop[i]);
     }
 
     while (b_score < 2040)
@@ -142,7 +139,7 @@ void genetic_algorithm()
         }
     }
 
-    printf("%s\n", b_dna);
+    printf("%x, score: %d\n", b_dna, b_score);
 
     return;
 }
