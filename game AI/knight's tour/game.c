@@ -108,6 +108,8 @@ void genetic_algorithm()
         printf("%2d: %x\n", i, *pop[i]);
     }
 
+    b_score = 0;
+
     while (b_score < 2040)
     {
         for (i = 0; i < N_POPULATION; i++)
@@ -139,7 +141,7 @@ void genetic_algorithm()
         }
     }
 
-    printf("%x, score: %d\n", b_dna, b_score);
+    printf("BEST GENE: %x, SCORE: %d\n", b_dna, b_score);
 
     return;
 }
