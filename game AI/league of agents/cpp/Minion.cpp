@@ -4,7 +4,7 @@
 // constructor
 Minion::Minion(char m_type)
 {
-
+    
 }
 
 // destructor
