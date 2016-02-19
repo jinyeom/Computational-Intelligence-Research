@@ -17,6 +17,22 @@ Minion::~Minion()
     << std::endl;
 }
 
+// check if this minion is dead
+bool Minion::is_dead()
+{
+    return (this.hp == 0);
+}
+
+// move the minion to (x, y)
+void Minion::move(int x, int y)
+{
+    // move until it reaches the destination
+    while(this.x != x && this.y != y)
+    {
+
+    }
+}
+
 // getters
 int get_f_hp()              {   return this.f_hp;   }
 int get_atk()               {   return this.atk;    }
@@ -38,19 +54,3 @@ void set_dx(int dx)         {   this.dx = dx;       }
 void set_dy(int dy)         {   this.dy = dy;       }
 void set_t_x(int t_x)       {   this.t_x = t_x;     }
 void set_t_y(int t_y)       {   this.t_y = t_y;     }
-
-// check if this minion is dead
-bool Minion::is_dead()
-{
-    return (this.hp == 0);
-}
-
-// move the minion to (x, y)
-void Minion::move(int x, int y)
-{
-    // move until it reaches the destination
-    while(this.x != x && this.y != y)
-    {
-
-    }
-}

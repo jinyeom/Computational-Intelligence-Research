@@ -29,6 +29,12 @@ public:
     // destructor
     ~Minion();                      /* destruct minion when it dies */
 
+    // in-game functions
+    bool is_dead();                 /* true if hp = 0               */
+    void move(int x, int y);        /* move to (x, y)               */
+    void target();                  /* target the closest enemy     */
+    void attack();                  /* attack if close to target    */
+
     // getters
     int get_f_hp();                 /* return full HP               */
     int get_atk();                  /* return attack damage         */
@@ -48,12 +54,6 @@ public:
     void set_dy(int dy);            /* set y speed to dy            */
     void set_t_x(int t_x);          /* set target x coord to t_x    */
     void set_t_y(int t_y);          /* set target y coord to t_y    */
-
-    // in-game functions
-    bool is_dead();                 /* true if hp = 0               */
-    void move(int x, int y);        /* move to (x, y)               */
-    void target();                  /* target the closest enemy     */
-    void attack();                  /* attack if close to target    */
 }
 
 #endif
