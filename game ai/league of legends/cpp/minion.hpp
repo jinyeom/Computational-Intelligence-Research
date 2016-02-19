@@ -1,9 +1,14 @@
+#ifndef MINION_HPP
+#define MINION_HPP
+#endif
+
 class Minion
 {
 
 private:
 
     // character stats
+    int m_num;                      /* minion number for counting   */
     int f_hp;                       /* full HP                      */
     int atk;                        /* attack damage to enemy       */
 
@@ -49,5 +54,6 @@ public:
     void move(int x, int y);        /* move to (x, y)               */
     void target();                  /* target the closest enemy     */
     void attack();                  /* attack if close to target    */
-
 }
+
+#endif
