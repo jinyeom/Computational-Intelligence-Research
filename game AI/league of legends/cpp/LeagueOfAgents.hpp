@@ -1,0 +1,12 @@
+class LeagueOfAgents
+{
+
+private:
+
+
+
+public:
+
+
+
+}
