@@ -1,0 +1,14 @@
+{"Minion": [
+    {"type": "Melee", "hp": 455, "damage": 12,
+        "range": 100, "attack_speed": 1.25}
+    {"type": "Caster", "hp": 290, "damage": 23,
+        "range": 600, "attack_speed": 0.67}
+    {"type": "Siege", "hp": 805, "damage": 39.5,
+        "range": 450, "attack_speed": 1.0}
+    {"type": "Super", "hp": 1500, "damage": 180,
+        "range": 100, "attack_speed": 0.694}
+]}
+
+{"Champion": [
+
+]}

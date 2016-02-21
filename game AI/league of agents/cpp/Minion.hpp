@@ -2,15 +2,20 @@
 #define MINION_HPP
 #endif
 
+#include <string>
+
 class Minion
 {
 
 private:
 
     // character stats
+    string type                     /* minion type                  */
     int m_num;                      /* minion number for counting   */
     int f_hp;                       /* full HP                      */
     int atk;                        /* attack damage to enemy       */
+    double a_range;                 /* attack range                 */
+    double a_speed;                 /* attack speed                 */
 
     // character status
     int hp;                         /* health point                 */
@@ -55,5 +60,3 @@ public:
     void set_t_x(int t_x);          /* set target x coord to t_x    */
     void set_t_y(int t_y);          /* set target y coord to t_y    */
 }
-
-#endif

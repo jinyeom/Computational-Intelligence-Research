@@ -1,8 +1,9 @@
 #include "Minion.hpp"
 #include "iostream"
+#include "string"
 
 // constructor
-Minion::Minion(char m_type)
+Minion::Minion(string m_type)
 {
     
 }
