@@ -2,7 +2,7 @@
 #define CHAMPION_HPP
 #endif
 
-class Champion
+class Champion: public Entity
 {
 
 private:

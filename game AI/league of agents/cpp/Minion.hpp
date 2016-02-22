@@ -2,25 +2,18 @@
 #define MINION_HPP
 #endif
 
-#include <string>
-
-class Minion
+class Minion: public Entity
 {
 
-private:
+protected:
 
-    // character stats
-    string type                     /* minion type                  */
+    // minion stats
     int m_num;                      /* minion number for counting   */
-    int f_hp;                       /* full HP                      */
-    int atk;                        /* attack damage to enemy       */
-    double a_range;                 /* attack range                 */
-    double a_speed;                 /* attack speed                 */
+    double atk_damage;              /* attack damage to enemy       */
+    double atk_range;               /* attack range                 */
+    double atk_speed;               /* attack speed                 */
 
-    // character status
-    int hp;                         /* health point                 */
-    int x;                          /* x coordinate                 */
-    int y;                          /* y coordinate                 */
+    // minion status
     int dx;                         /* x speed                      */
     int dy;                         /* y speed                      */
     int t_x;                        /* target x coordinate          */
@@ -29,7 +22,7 @@ private:
 public:
 
     // constructor
-    Minion(char m_type);            /* created with a given type    */
+    Minion();                       /* created with a given type    */
 
     // destructor
     ~Minion();                      /* destruct minion when it dies */
@@ -41,22 +34,62 @@ public:
     void attack();                  /* attack if close to target    */
 
     // getters
-    int get_f_hp();                 /* return full HP               */
-    int get_atk();                  /* return attack damage         */
-    int get_hp();                   /* return current HP            */
-    int get_x();                    /* return x coordinate          */
-    int get_y();                    /* return y coordinate          */
+    int get_m_num();                /* return minion number         */
+    double get_atk_damage();        /* return attack damage         */
+    double get_atk_range();         /* return attack range          */
+    double get_atk_speed();         /* return attack speed          */
     int get_dx();                   /* return x speed               */
     int get_dy();                   /* return y speed               */
     int get_t_x();                  /* return target x coordinate   */
     int get_t_y();                  /* return target y coordinate   */
 
     // setters
-    void set_hp(int hp);            /* set HP to hp                 */
-    void set_x(int x);              /* set x coordinate to x        */
-    void set_y(int y);              /* set y coordinate to y        */
     void set_dx(int dx);            /* set x speed to dx            */
     void set_dy(int dy);            /* set y speed to dy            */
     void set_t_x(int t_x);          /* set target x coord to t_x    */
     void set_t_y(int t_y);          /* set target y coord to t_y    */
-}
+};
+
+// derived class of Melee minion
+class Melee: public Minion
+{
+
+public:
+
+    // constructor
+    Melee(int m_counter);
+
+};
+
+// derived class of Caster minion
+class Caster: public Minion
+{
+
+public:
+
+    // constructor
+    Caster(int m_counter);
+
+};
+
+// derived class of Siege minion
+class Siege: public Minion
+{
+
+public:
+
+    // constructor
+    Siege(int m_counter);
+
+};
+
+// derived class of Super minion
+class Super: public Minion
+{
+
+public:
+
+    // constructor
+    Super(int m_counter);
+
+};
