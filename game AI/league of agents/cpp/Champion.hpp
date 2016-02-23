@@ -10,8 +10,5 @@ private:
     int c_mana;
 
 public:
-    void move();
-    void attack();
-    void retreat();
 
 }
