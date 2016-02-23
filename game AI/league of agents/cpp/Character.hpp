@@ -7,31 +7,29 @@ class Character: public Entity
 protected:
 
     // character stats
-    double atk_damage;              /* attack damage to enemy       */
-    double atk_range;               /* attack range                 */
-    double atk_speed;               /* attack speed                 */
+    double atk_damage;
+    double atk_range;
+    double atk_speed;
 
     // character status
-    double dir;                     /* moving direction (angle)     */
-    int speed;                      /* moving speed                 */
+    double dir;
+    int speed;
 
 public:
 
-    // in-game functions
-    bool is_dead();                 /* true if hp = 0               */
-    void move(int x, int y);        /* move to (x, y)               */
-    void target();                  /* target the closest enemy     */
-    void attack();                  /* attack if close to target    */
+    bool is_dead();
 
-    // getters
-    double get_dir();               /* return moving direction      */
-    double get_speed();             /* return moving speed          */
-    double get_atk_damage();        /* return attack damage         */
-    double get_atk_range();         /* return attack range          */
-    double get_atk_speed();         /* return attack speed          */
+    double get_dir();
+    double get_speed();
+    double get_atk_damage();
+    double get_atk_range();
+    double get_atk_speed();
 
-    // setters
-    void set_m_num();               /* set character
+    void set_atk_damage(double atk_damage);
+    void set_atk_range(double atk_range);
+    void set_atk_speed(double atk_speed);
+    void set_dir(double dir);
+    void set_speed(int speed);
 };
 
 #endif
