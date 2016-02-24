@@ -5,9 +5,15 @@ class Champion: public Character
 {
 
 private:
-    
+
 
 public:
+
+    Champion();
+    ~Champion();
+
+    void update();
+
 
 };
 
