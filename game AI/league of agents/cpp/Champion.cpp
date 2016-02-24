@@ -1,13 +1,10 @@
 #include "Champion.hpp"
 
-Champion::Champion()
+Champion::Champion(int hp, )
 {
-    this.hp
-}
-
-Champion::~Champion()
-{
-
+    this.hp =
+    this.lvl = 1;
+    this.atk_damage =
 }
 
 void Champion::update()

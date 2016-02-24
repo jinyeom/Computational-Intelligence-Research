@@ -6,19 +6,19 @@ class Minion: public Character
 
 private:
 
-    int m_num;
+    int         m_num;       /* minion number    */
 
-    int f_hp;
-    int hp;
-    int x;
-    int y;
+    int         f_hp;        /* full health      */
+    int         hp;          /* health point     */
+    int         x;           /* x coordinate     */
+    int         y;           /* y coordinate     */
 
-    double atk_damage;
-    double atk_range;
-    double atk_speed;
+    double      d_atk;       /* attack damage    */
+    double      r_atk;       /* attack range     */
+    double      s_atk;       /* attack speed     */
 
-    double dir;
-    int speed;
+    double      dir;         /* moving direction */
+    int         speed;       /* moving speed     */
 
 public:
 

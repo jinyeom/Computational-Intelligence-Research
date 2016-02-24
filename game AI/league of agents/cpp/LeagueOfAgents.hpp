@@ -6,25 +6,24 @@ class LeagueOfAgents
 
 private:
 
-    bool gg_flag;
+    bool        gg_flag;        /* game over indicator  */
 
-    Champion r_player_1;
-    Champion r_player_2;
-    Minion* r_minions;
+    Nexus*      r_nexus;        /* red team Nexus       */
+    Champion*   r_team;         /* red team Champions   */
+    Minion*     r_minions;      /* red team Minions     */
 
-    Champion b_player_1;
-    Champion b_player_2;
-    Minion* b_minions;
+    Nexus*      b_nexus;        /* blue team Nexus      */
+    Champion*   b_team;         /* blue team Champions  */
+    Minion*     b_minions;      /* blue team Minions    */
 
 public:
 
     LeagueOfAgents();
     ~LeagueOfAgents();
 
-    void update_terminal();
-
     Champion* game_loop();
-    Champion* create_teams();
+    Champion* create_team();
+    Minion* create_minions();
 
 };
 

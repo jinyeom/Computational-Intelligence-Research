@@ -9,8 +9,7 @@ private:
 
 public:
 
-    Champion();
-    ~Champion();
+    Champion(int f_hp, int );
 
     void update();
 

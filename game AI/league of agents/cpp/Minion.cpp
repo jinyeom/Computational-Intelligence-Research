@@ -10,21 +10,12 @@ Minion::Minion(int m_num, int x, int y)
     this.x = x;
     this.y = y;
 
-    this.atk_damage = 12
-    this.atk_range = 100
-    this.atk_speed = 1.25
+    this.d_atk = 12;
+    this.r_atk = 100;
+    this.s_atk = 1.25;
 
     this.dir = 0.0;
     this.speed = 325;
-}
-
-Minion::~Minion()
-{
-    std::cout
-    << "Minion number "
-    << this.m_num
-    << " destroyed."
-    << std::endl;
 }
 
 bool Minion::is_dead()
