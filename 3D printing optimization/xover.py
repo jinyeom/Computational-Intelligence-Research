@@ -17,7 +17,9 @@ def mutate(ind, mu, sigma, shufflepb, indpb):
     else:
         num_cuts = ind.getNumCuts()
         num_vals = num_cuts*5
-        num_mutations = max(1,sum([1 for i in range(num_vals) if random.random()<indpb]))
+        num_mutations = max(1,sum([1 for i in range(num_vals)
+                                    if random.random()<indpb]))
+
         for x in range(num_mutations):
             i = random.randint(0,num_cuts-1)
             j = random.randint(0,4)
@@ -28,6 +30,7 @@ def mutate(ind, mu, sigma, shufflepb, indpb):
 # Jin's implementation of Crossover
 def xover(ind_1, ind_2, cutpb, indpb):
     t_ind_1 = deepcopy(ind_1)
+    t_ind_2 = deepcopy(ind_2)
 
     n_cuts_1 = ind_1.getNumCuts()
     n_cuts_2 = ind_2.getNumCuts()
@@ -59,12 +62,19 @@ def xover(ind_1, ind_2, cutpb, indpb):
                 ind_1.cut_info[i][-2:], ind_2.cut_info[j][-2:] \
                     = ind_2.cut_info[j][-2:], ind_1.cut_info[i][-2:]
 
+    # check for duplicates in an individual
+    ind_1 = duplicate_free(ind_1)
+    ind_2 = duplicate_free(ind_2)
+
     # mutate the children if they are the same as the parents
     if t_ind_1.cut_info == ind_1.cut_info:
-        print "XOVER_FAILED: MUTATION"
-        return mutate(ind_1, 0, .05, .2, .5), mutate(ind_2, 0, .05, .2, .5)
+        print "XOVER_FAILED: IND_1 MUTATION"
+        ind_1 = mutate(ind_1, 0, .05, .2, .5)
+    if t_ind_2.cut_info == ind_2.cut_info:
+        print "XOVER_FAILED: IND_2 MUTATION"
+        ind_2 = mutate(ind_2, 0, .05, .2, .5)
 
-    return duplicate_free(ind_1), duplicate_free(ind_2)
+    return ind_1, ind_2
 
 # check for duplicates in an individual
 def duplicate_free(ind):
