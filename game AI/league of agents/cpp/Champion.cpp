@@ -2,9 +2,12 @@
 
 Champion::Champion(int hp, )
 {
-    this.hp =
-    this.lvl = 1;
-    this.atk_damage =
+    this.exp = 0;
+    this.f_hp = f_hp;
+    this.hp = f_hp;
+    this.d_atk = d_atk;
+    this.r_atk = r_atk;
+    this.s_atk = s_atk;
 }
 
 void Champion::update()

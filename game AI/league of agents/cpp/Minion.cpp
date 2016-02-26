@@ -1,10 +1,8 @@
 #include "Minion.hpp"
 #include "iostream"
 
-Minion::Minion(int m_num, int x, int y)
+Minion::Minion(int x, int y)
 {
-    this.m_num = m_num;
-
     this.f_hp = 455;
     this.hp = f_hp;
     this.x = x;

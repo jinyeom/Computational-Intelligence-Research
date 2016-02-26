@@ -1,17 +1,16 @@
 #ifndef MINION_HPP
 #define MINION_HPP
 
-class Minion: public Character
+class Minion
 {
 
 private:
-
-    int         m_num;       /* minion number    */
 
     int         f_hp;        /* full health      */
     int         hp;          /* health point     */
     int         x;           /* x coordinate     */
     int         y;           /* y coordinate     */
+    int         exp;         /* exp when killed  */
 
     double      d_atk;       /* attack damage    */
     double      r_atk;       /* attack range     */
@@ -22,7 +21,7 @@ private:
 
 public:
 
-    Minion(int m_num, int x, int y);
+    Minion(int x, int y);
     ~Minion();
 
     bool is_dead();

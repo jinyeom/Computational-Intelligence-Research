@@ -8,7 +8,6 @@ void game_test()
     // create a new game object
     LeagueOfAgents game = new LeagueOfAgents();
     game.game_loop();
-    game.update_terminal();
 }
 
 int main()

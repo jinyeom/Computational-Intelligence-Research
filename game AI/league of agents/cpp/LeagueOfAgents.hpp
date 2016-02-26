@@ -21,7 +21,8 @@ public:
     LeagueOfAgents();
     ~LeagueOfAgents();
 
-    Champion* game_loop();
+    void game_loop();
+    bool check_winner();
     Champion* create_team();
     Minion* create_minions();
 
