@@ -9,7 +9,7 @@ from target import Target as T
 from neural_network import NNetwork as NNet
 
 class Game:
-    def __init__(self, manual=True):
+    def __init__(self):
         # pygame setup
         pygame.init()
         pygame.display.set_caption(c.game['g_name'])
@@ -18,139 +18,37 @@ class Game:
         self.display    = pygame.display.set_mode(
                             (c.game['width'], c.game['height']))
 
-        # game setup
-        if manual:
-            self.agents = [A(0)]
-
-        else:
-            self.agents = []
-
+        self.agents = []
         self.targets    = [T() for _ in range(c.game['n_targets'])]
         self.generation = 0
 
         # save terminal
         print "\033[?47h"
 
-    # add an agent using the nnet argument
+    # add an agent with nnet argument
     def add_agent(self, nnet):
         self.agents.append(Agent(len(self.agents), nnet))
 
-    def game_loop(self, display=True, manual=True):
+    # find an agent with weights argument
+    def get_ind_fitness(weights):
+        for a in self.agents:
+            if a.weights == weights:
+                return a.fitness
+
+    def game_loop(self, display=True):
         for i in range(c.game['g_time']):
 
-            self.game_logic(manual)
+            self.game_logic()
 
             if i % c.game['delay'] == 0: self.update_terminal()
             if display: self.process_graphic()
 
         return [a.fitness for a in self.agents]
 
-    def game_test(self):
-        self.agents = [A(0)]
-        self.agents[0].position = [c.game['width']/2, c.game['height']]
-        self.agents[0].track = [0, 0]
-        self.agents[0].rotation = math.pi
-
-        for i in range(c.game['t_time'] / 10):
-            self.agents[0].track = [1., 1.]
-            self.game_logic(True)
-
-            if i % c.game['delay'] == 0: self.update_terminal()
-            self.process_graphic()
-
-        self.agents[0].position = [c.game['width']/2, c.game['height']]
-        self.agents[0].track = [0, 0]
-        self.agents[0].rotation = math.pi
-
-        for i in range(c.game['t_time'] / 10):
-            self.agents[0].track = [1.01, 0.99]
-            self.game_logic(True)
-
-            if i % c.game['delay'] == 0: self.update_terminal()
-            self.process_graphic()
-
-        self.agents[0].position = [c.game['width']/2, c.game['height']]
-        self.agents[0].track = [0, 0]
-        self.agents[0].rotation = math.pi
-
-        for i in range(c.game['t_time'] / 10):
-            self.agents[0].track = [1.02, 0.98]
-            self.game_logic(True)
-
-            if i % c.game['delay'] == 0: self.update_terminal()
-            self.process_graphic()
-
-        self.agents[0].position = [c.game['width']/2, c.game['height']]
-        self.agents[0].track = [0, 0]
-        self.agents[0].rotation = math.pi
-
-        for i in range(c.game['t_time'] / 10):
-            self.agents[0].track = [1.03, 0.97]
-            self.game_logic(True)
-
-            if i % c.game['delay'] == 0: self.update_terminal()
-            self.process_graphic()
-
-        self.agents[0].position = [c.game['width']/2, c.game['height']]
-        self.agents[0].track = [0, 0]
-        self.agents[0].rotation = math.pi
-
-        for i in range(c.game['t_time'] / 10):
-            self.agents[0].track = [1.04, 0.96]
-            self.game_logic(True)
-
-            if i % c.game['delay'] == 0: self.update_terminal()
-            self.process_graphic()
-
-        self.agents[0].position = [c.game['width']/2, c.game['height']]
-        self.agents[0].track = [0, 0]
-        self.agents[0].rotation = math.pi
-
-        for i in range(c.game['t_time'] / 10):
-            self.agents[0].track = [0.99, 1.01]
-            self.game_logic(True)
-
-            if i % c.game['delay'] == 0: self.update_terminal()
-            self.process_graphic()
-
-        self.agents[0].position = [c.game['width']/2, c.game['height']]
-        self.agents[0].track = [0, 0]
-        self.agents[0].rotation = math.pi
-
-        for i in range(c.game['t_time'] / 10):
-            self.agents[0].track = [0.98, 1.02]
-            self.game_logic(True)
-
-            if i % c.game['delay'] == 0: self.update_terminal()
-            self.process_graphic()
-
-        self.agents[0].position = [c.game['width']/2, c.game['height']]
-        self.agents[0].track = [0, 0]
-        self.agents[0].rotation = math.pi
-
-        for i in range(c.game['t_time'] / 10):
-            self.agents[0].track = [0.97, 1.03]
-            self.game_logic(True)
-
-            if i % c.game['delay'] == 0: self.update_terminal()
-            self.process_graphic()
-
-        self.agents[0].position = [c.game['width']/2, c.game['height']]
-        self.agents[0].track = [0, 0]
-        self.agents[0].rotation = math.pi
-
-        for i in range(c.game['t_time'] / 10):
-            self.agents[0].track = [0.96, 1.04]
-            self.game_logic(True)
-
-            if i % c.game['delay'] == 0: self.update_terminal()
-            self.process_graphic()
-
-    def game_logic(self, manual):
+    def game_logic(self):
         for a in self.agents:
 
-            if manual: a.control()
-            else: a.update(self.targets)
+            a.update(self.targets)
 
             if a.check_collision(self.targets) != -1:
                 self.targets[a.t_closest].reset()
@@ -203,6 +101,5 @@ class Game:
 
 if __name__ == '__main__':
     g = Game()
-    g.game_test()
-    g.game_loop()
+    g.game_loop(False)
     pygame.quit()

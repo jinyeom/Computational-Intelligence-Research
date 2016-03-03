@@ -28,8 +28,7 @@ toolbox.register("individual", tools.initRepeat, creator.Individual,
 toolbox.register("population", tools.initRepeat, list, toolbox.individual)
 
 def evalANN(individual):
-    #return game.getFitness(individual),
-
+    return game.Game.get_ind_fitness(individual)
 
 toolbox.register("evaluate", evalANN)
 toolbox.register("mate", tools.cxBlend, alpha = .05)
@@ -39,7 +38,7 @@ toolbox.register("select", tools.selTournament, tournsize=2)
 def main():
 
     # new game
-    g = game.Game()
+    ms = game.Game()
 
     random.seed(64)
     NGEN = 200
@@ -50,21 +49,25 @@ def main():
     for ind in pop:
         ann = ANN(num_inputs, num_hidden_nodes, num_outputs,ind)
         g.add_agent(ann)
-    f = g.game_loop
+
+    ms.game_loop(False)
 
     fitnesses = list(map(toolbox.evaluate, pop))
     for ind, fit in zip(pop, fitnesses):
         ind.fitness.values = fit
 
     for g in range(NGEN):
+        ms.agents = []
+
         offspring = toolbox.select(pop, len(pop))
         offspring = algorithms.varAnd(offspring, toolbox, cxpb=.5, mutpb=.5)
 
         ind_to_ann = dict()
         for ind in pop:
             ann = ANN(num_inputs, num_hidden_nodes, num_outputs,ind)
-            g.add_agent(ann)
-        f = g.game_loop()
+            ms.add_agent(ann)
+
+        ms.game_loop(False)
 
         fitnesses = toolbox.map(toolbox.evaluate, offspring)
         for ind, fit in zip(offspring, fitnesses):
