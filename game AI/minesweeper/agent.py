@@ -1,13 +1,14 @@
 # agent.py
 import math
 import pygame
+import ANN as nnet
 import random as r
 import config as c
 
 class Agent:
     def __init__(self, number, nnet):
         self.number         = number # agent number
-        self.brain          = nnet # neural network
+        self.brain          = nnet
         self.fitness        = 0 # fitness
         self.t_closest      = 0 # index of the closest target
         self.speed          = 0.0 # movement speed
@@ -91,7 +92,7 @@ class Agent:
         inputs.append(self.vision[1])
 
         # outputs from neural network
-        outputs = self.brain.update(inputs)
+        outputs = self.brain.evaluate(inputs)
         self.track[0] = outputs[0]
         self.track[1] = outputs[1]
 
