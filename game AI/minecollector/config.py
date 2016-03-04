@@ -2,8 +2,8 @@
 
 # configuration for game
 game = dict(
-    width               = 400, # game width
-    height              = 400, # game height
+    width               = 800, # game width
+    height              = 800, # game height
     g_name              = "GAME", # game name
     g_time              = 10000, # game time
     t_time              = 5000, # game testing time
@@ -11,13 +11,13 @@ game = dict(
     delay               = 20, # terminal update delay
     n_best              = 5, # number of best agents
     n_agents            = 20, # number of agents
-    n_targets           = 10, # number of targets
+    n_targets           = 20, # number of targets
     s_agent             = 28, # size of an agent
     s_target            = 2, # size of a target
     l_track             = 2., # default speed of left track
     r_track             = 2., # default speed of right track
-    r_min               = -0.03, # minimum rotation rate
-    r_max               = 0.03, # maximum rotation rate
+    r_min               = -0.1, # minimum rotation rate
+    r_max               = 0.1, # maximum rotation rate
 )
 
 # configuration for image sources
@@ -41,7 +41,7 @@ nnet = dict(
 
 # configuration for genetic algorithm
 ga = dict(
-    n_gen               = 30, # number of generations
+    n_gen               = 50, # number of generations
     p_mut               = 0.1, # probability of mutation
     p_xover             = 0.1, # probability of crossover
     p_select            = 0.5, # probability of selection

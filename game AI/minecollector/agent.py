@@ -128,7 +128,7 @@ class Agent:
             self.position[1] = c.game['height']
 
     def get_closest_target(self, targets):
-        closest = 99999.0
+        closest = float('inf')
         closestVec = [0.0, 0.0]
 
         # search for the closest mine

@@ -6,7 +6,6 @@ import util
 import config as c
 from agent import Agent as A
 from target import Target as T
-from neural_network import NNetwork as NNet
 
 class Game:
     def __init__(self):
@@ -27,13 +26,19 @@ class Game:
 
     # add an agent with nnet argument
     def add_agent(self, nnet):
-        self.agents.append(Agent(len(self.agents), nnet))
+        self.agents.append(A(len(self.agents), nnet))
+
+    def reset(self):
+        self.agents = []
 
     # find an agent with weights argument
-    def get_ind_fitness(weights):
+    def get_ind_fitness(self, ind):
         for a in self.agents:
-            if a.weights == weights:
+            for i,weight in enumerate(a.brain.weights):
+                if weight != ind[i]:
+                    continue
                 return a.fitness
+        return None
 
     def game_loop(self, display=True):
         for i in range(c.game['g_time']):
@@ -95,8 +100,8 @@ class Game:
 
         for a in self.agents:
             print "AGENT " + repr(a.number).rjust(2) + ": ",
-            print "X: " + repr(a.position[0]).rjust(20),
-            print "Y: " + repr(a.position[1]).rjust(20),
+#            print "X: " + repr(a.position[0]).rjust(20),
+#           print "Y: " + repr(a.position[1]).rjust(20),
             print "FITN.:" + repr(a.fitness).rjust(5)
 
 if __name__ == '__main__':
