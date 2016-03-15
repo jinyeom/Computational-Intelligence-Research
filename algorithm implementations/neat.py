@@ -3,12 +3,12 @@ import random
 
 # define a Neural network in NEAT
 class NEAT:
-    def __init__(self, nIns, nOuts):
-        self.n_inputs = nIns                        # number of inputs
-        self.n_outputs = nOuts                      # number of outputs
-        self.h_mark = 0                             # historical marking
-        self.nodes = self.initNodes(nIns, nOuts)    # init nodes
-        self.conns = self.initConns(nIns, nOuts)    # init connections
+    def __init__(self, n_ins, n_outs):
+        self.n_inputs = n_ins                           # number of inputs
+        self.n_outputs = n_outs                         # number of outputs
+        self.h_mark = 0                                 # historical marking
+        self.nodes = self.init_nodes(n_ins, n_outs)     # init nodes
+        self.conns = self.init_conns(n_ins, n_outs)     # init connections
 
     # initialize nodes
     def initNodes(self, nIns, nOuts):
