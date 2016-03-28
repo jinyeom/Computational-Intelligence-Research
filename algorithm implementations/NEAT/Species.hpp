@@ -1,0 +1,11 @@
+class Species
+{
+
+private:
+
+    
+
+public:
+
+
+}
