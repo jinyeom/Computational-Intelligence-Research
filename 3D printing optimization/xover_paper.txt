@@ -1,0 +1,28 @@
+CROSSOVER
+
+ Each individual in our optimization method　is represented with a list of one
+or more slicing instructions, each　instruction represented with five numbers.
+The first three numbers of an instruction are normalized x, y, z coordinates of
+a point upon which a 3D object is sliced; the last two numbers describe
+normalized angles of slicing plane on a (x, z)-plane and a (y, z)-plane
+(Figure 1).
+ In search of diverse optimal solutions, crossovers and mutations are
+essential. For the purpose of establishing both exploration and exploitation,
+we developed a novel system of crossover. After every generation, two
+individuals can exchange portions of their genes through one of two distinct
+types of crossover, macro-crossover or micro-crossover, each of which
+achieves exploration or exploitation, respectively.
+ Macro-crossover is a form of one-point crossover in which a random number of
+slicing instructions are chosen within each individual and swapped. This method
+allows a wide range of slicing combinations without potential loss of optimal
+solution from changing orders of instructions (figure 2-1). We observed three
+different kinds of resulting set of children from macro-crossover. First, two
+individuals exchanged equal number of slicing instructions, resulting with two
+children with the same number of instructions as their parents; second, two
+individuals exchange different number of instructions, resulting with children
+with different number of instructions; and lastly, crossover doesn't happen and,
+as a result, the two individuals mutate instead.
+Micro-crossover is a more detailed form of crossover, which allows refinement of
+solutions, rather than search for different solutions. In this method, parts of
+instructions are exchanged rather than instructions as a whole: either a set of
+coordinates of slicing point or a set of two slicing angles.
