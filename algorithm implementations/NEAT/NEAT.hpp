@@ -1,4 +1,5 @@
-#include <vector>
+#ifndef NEAT_HPP
+#define NEAT_HPP
 
 class NEAT
 {
@@ -13,9 +14,13 @@ private:
 public:
 
     NEAT();
-    ~NEAT();
 
     void mut_add_conn();
     void mut_add_node();
 
-}
+    void xover();
+    void speciation();
+
+};
+
+#endif

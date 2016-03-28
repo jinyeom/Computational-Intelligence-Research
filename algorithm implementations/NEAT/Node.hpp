@@ -1,14 +1,19 @@
+#ifndef NODE_HPP
+#define NODE_HPP
+
 class Node
 {
 
 private:
 
-    double input_sum;
+    double in_sum;
 
 public:
 
     Node();
-    ~Node();
-
     double update();
-}
+    double sigmoid();
+
+};
+
+#endif
