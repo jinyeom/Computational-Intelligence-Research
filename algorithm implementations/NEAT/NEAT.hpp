@@ -6,20 +6,17 @@ class NEAT
 
 private:
 
-    int                     hist_mark;
-    vector<Node>            nodes;
-    vector<Connection>      conns;
-    vector<Species>         species;
+    int             gin_node;   // global innovation number for nodes
+    int             gin_conn;   // global innovation number for connections
+    vector<Species> species;    // vector of species of networks
 
 public:
 
-    NEAT();
-
-    void mut_add_conn();
-    void mut_add_node();
-
-    void xover();
-    void speciation();
+    NEAT();                         // constructor
+    void xover();                   // crossover
+    void mut_add_conn();            // mutation to add a connection
+    void mut_add_node();            // mutation to add a node
+    void speciation(Network* n);    // speciate a network
 
 };
 
