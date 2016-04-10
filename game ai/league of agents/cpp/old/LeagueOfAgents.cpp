@@ -6,8 +6,6 @@
 
 LeagueOfAgents::LeagueOfAgents()
 {
-    this.gg_flag    = false;
-
     this.r_nexus    = new Nexus();
     this.r_team     = create_team();
     this.r_minions  = create_minions();
@@ -30,7 +28,7 @@ void LeagueOfAgents::game_loop()
     register int i;
 
     // loop until one team loses (main structure destroyed)
-    while (!gg_flag)
+    for ( ; ; )
     {
         // update each team
         for (i = 0; i < N_CHAMPIONS; i++)

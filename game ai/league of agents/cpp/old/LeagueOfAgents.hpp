@@ -6,8 +6,6 @@ class LeagueOfAgents
 
 private:
 
-    bool        gg_flag;        /* game over indicator  */
-
     Nexus*      r_nexus;        /* red team Nexus       */
     Champion*   r_team;         /* red team Champions   */
     Minion*     r_minions;      /* red team Minions     */
