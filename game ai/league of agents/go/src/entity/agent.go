@@ -1,7 +1,7 @@
 package entity
 
 import (
-
+    
 )
 
 // define an Agent
@@ -15,6 +15,6 @@ type Agent struct {
     brain   NNet        // neural network
 }
 
-func NewAgent() *Agent {
+func NewAgent(b NNet) *Agent {
     return &Agent{}
 }
