@@ -23,12 +23,11 @@ func main() {
     }
     defer glfw.Terminate()
 
-    // window sizes
-    w := c["w_width"].(int)
-    h := c["w_height"].(int)
-
-    window, err := glfw.CreateWindow(w, h, "LOL", nil, nil)
-
+    // window setting
+    w := int(c["w_width"].(float64))
+    h := int(c["w_height"].(float64))
+    n := "League of Agents"
+    window, err := glfw.CreateWindow(w, h, n, nil, nil)
     if err != nil {
         panic(err)
     }

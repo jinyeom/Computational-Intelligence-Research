@@ -3,7 +3,6 @@ package tool
 import (
     "os"
     "io"
-    "fmt"
     "log"
     "bytes"
     "encoding/json"
@@ -22,7 +21,6 @@ func Config(path string) (conf map[string]interface{}) {
     // copy json file in a string
     io.Copy(buf, file)
     str := string(buf.Bytes())
-    fmt.Println(str)
 
     // create map with string
     var f interface{}
