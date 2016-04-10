@@ -3,7 +3,6 @@ package tool
 import (
     "os"
     "io"
-    "log"
     "bytes"
     "encoding/json"
 )
@@ -14,7 +13,7 @@ func Config(path string) (conf map[string]interface{}) {
     buf := bytes.NewBuffer(nil)
     file, err := os.Open(path)
     if err != nil {
-        log.Fatal(err)
+        panic(err)
     }
     defer file.Close()
 
@@ -26,7 +25,7 @@ func Config(path string) (conf map[string]interface{}) {
     var f interface{}
     err = json.Unmarshal([]byte(str), &f)
     if err != nil {
-        log.Fatal(err)
+        panic(err)
     }
 
     // define config and return
