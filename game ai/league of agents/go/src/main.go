@@ -1,20 +1,11 @@
 package main
 
 import (
-    "tool"
     "runtime"
-    "github.com/veandco/go-sdl2/sdl"
+    "tool"
+    "github.com/go-gl/glfw/v3.1/glfw"
+    "github.com/go-gl/gl/v4.5-core/gl"
 )
-
-// initialize
-func mainInit() {
-    // main() as main thread
-    runtime.LockOSThread()
-
-    // initialize SDL
-    sdl.Init(sdl.INIT_EVERYTHING)
-
-}
 
 // add an agent
 func addAgent() {
@@ -27,38 +18,49 @@ func update() {
 }
 
 func main() {
-    mainInit()
+    // main() runs on main thread
+    runtime.LockOSThread()
 
     // get configurations
     c := tool.Config("tool/conf.json")
 
-    // setup SDL
+    // initialize GLFW
+    if err := glfw.Init(); err != nil {
+        panic(err)
+    }
+    defer glfw.Terminate()
 
     // window setting
+    glfw.WindowHint(glfw.Resizable, glfw.False)
+	glfw.WindowHint(glfw.ContextVersionMajor, 4)
+	glfw.WindowHint(glfw.ContextVersionMinor, 5)
+	glfw.WindowHint(glfw.OpenGLProfile, glfw.OpenGLCoreProfile)
+	glfw.WindowHint(glfw.OpenGLForwardCompatible, glfw.True)
+
     w := int(c["w_width"].(float64))
     h := int(c["w_height"].(float64))
     t := "League of Agents"
-    window, err := sdl.CreateWindow(t, sdl.WINDOWPOS_UNDEFINED,
-        sdl.WINDOWPOS_UNDEFINED, w, h, sdl.WINDOW_SHOWN)
-    if err != nil {
-        panic(err)
-    }
-    defer window.Destroy()
 
-    surface, err := window.GetSurface()
+    window, err := glfw.CreateWindow(w, h, t, nil, nil)
     if err != nil {
         panic(err)
     }
+
+    window.MakeContextCurrent()
+
+    // init GL
+    if err := gl.Init(); err != nil {
+        panic(err)
+    }
+
 
     // game loop
-    for true {
-        rect := sdl.Rect{0, 0, 200, 200}
-        surface.FillRect(&rect, 0xffff0000)
+    for !window.ShouldClose() {
 
-        window.UpdateSurface()
-        sdl.Delay(1000)
+
+
+
+        window.SwapBuffers()
+        glfw.PollEvents()
     }
-
-
-    sdl.Quit()
 }
