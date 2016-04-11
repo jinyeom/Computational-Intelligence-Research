@@ -1,4 +1,27 @@
 {
-    "w_width": 800,
-    "w_height": 600
+    "w_width"       : 800,
+    "w_height"      : 600,
+
+    "clear_r"       : 0.7,
+    "clear_g"       : 0.7,
+    "clear_b"       : 0.7,
+    "clear_a"       : 1.0,
+
+    "vertShader"    : "
+        # version 330
+
+        uniform mat4 projection;
+        uniform mat4 camera;
+        uniform mat4 model;
+
+        in vec3 vert;
+        in vec2 vertTexCoord;
+
+        out vec2 fragTexCoord;
+
+        void main() {
+            fragTexCoord = vertTexCoord;
+
+        }
+    "
 }

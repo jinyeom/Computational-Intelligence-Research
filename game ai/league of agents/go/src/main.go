@@ -4,7 +4,8 @@ import (
     "fmt"
     "runtime"
     "tool"
-    // "game"
+    "ui"
+    "game"
     "github.com/go-gl/glfw/v3.1/glfw"
     "github.com/go-gl/gl/v4.1-core/gl"
 )
@@ -13,7 +14,7 @@ import (
 func logoPrint() {
     logo := `
  __        _____     _____     _____     __  __    _____
-/\ \      /\  ___\  /\  __ \  /\  ___\  /\ \/\ \  /\  ___\
+/\ \      /\  ___\  /\  __ \  /\  ___\  /\ \/\ \  /\  ___\      v.0.1.0
 \\\ \     \\\ \__/  \\\ \_\ \ \\\ \  __ \\\ \ \ \ \\\ \__/      ____   ____
  \\\ \     \\\  ___\ \\\  __ \ \\\ \/\ \ \\\ \ \ \ \\\  ___\   | __ | | ___|
   \\\ \___  \\\ \__/  \\\ \/\ \ \\\ \_\ \ \\\ \_\ \ \\\ \__/   ||  || | |_
@@ -29,6 +30,12 @@ func logoPrint() {
 `
 
     fmt.Println(logo)
+}
+
+// GL - new program
+func newProgram(vertShaderSrc, fragShaderSrc string) (uint32, error) {
+    vertexShader, err := ui.CompileShader()
+
 }
 
 // add an agent
@@ -80,9 +87,22 @@ func main() {
         panic(err)
     }
 
+    // setup clear color
+    gl.ClearColor(
+        float32(c["clear_r"].(float64)),
+        float32(c["clear_g"].(float64)),
+        float32(c["clear_b"].(float64)),
+        float32(c["clear_a"].(float64)))
+
     // game loop
     for !window.ShouldClose() {
         gl.Clear(gl.COLOR_BUFFER_BIT)
+
+        // gl.BeginQuery(TRIANGLES)
+        // glVertex(0.5,0.5)
+        // glVertex(0.0,-0.1)
+        // glVertex(-0.5,0.5)
+        // glEnd();
 
 
 
