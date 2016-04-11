@@ -5,8 +5,8 @@ import (
 )
 
 type Game struct {
-    agents      []Agent     // slice of agents
-    
+    agents      []entity.Agent     // slice of agents
+
 }
 
 func NewGame() *Game {
