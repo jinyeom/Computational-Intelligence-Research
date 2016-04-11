@@ -4,6 +4,7 @@ import (
     "fmt"
     "runtime"
     "tool"
+    "game"
     "github.com/go-gl/glfw/v3.1/glfw"
     "github.com/go-gl/gl/v4.1-core/gl"
 )
@@ -54,13 +55,11 @@ func main() {
         panic(err)
     }
 
-    // gl version
-    version := gl.GoStr(gl.GetString(gl.VERSION))
-	fmt.Println("OpenGL version", version)
-
-
     // game loop
     for !window.ShouldClose() {
+        gl.Clear(gl.COLOR_BUFFER_BIT)
+
+
 
 
 
