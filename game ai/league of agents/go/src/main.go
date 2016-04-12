@@ -5,7 +5,7 @@ import (
     "runtime"
     "tool"
     "ui"
-    "game"
+    // "game"
     "github.com/go-gl/glfw/v3.1/glfw"
     "github.com/go-gl/gl/v4.1-core/gl"
 )
@@ -22,7 +22,7 @@ func logoPrint() {
     \/=====/  \/=====/  \/=/\/=/  \/=====/  \/=====/  \/=====/ |____| |_|
           _____     _____     _____    __        __    _______     ______
         / __  /\  /  ___/\  /  ___/\  /  \      / /\ /__   __/\  /  ____/\
-       / /_/ /// / /\ __\/ /  /___\/ / /\ \    / /// \_/  /\_\/ /  /____\/
+       / /_/ /// / /\___\/ /  /___\/ / /\ \    / /// \_/  /\_\/ /  /____\/
       / __  /// / / / /\  /  ___/\  / ///\ \  / ///   /  ///   /___   /\
      / /\/ /// / /_/ /// /  /___\/ / ///  \ \/ ///   /  ///   _\__/  ///
     /_/ /_/// /_____/// /_____/\  /_///    \ _///   /__///   /______///
@@ -30,12 +30,6 @@ func logoPrint() {
 `
 
     fmt.Println(logo)
-}
-
-// GL - new program
-func newProgram(vertShaderSrc, fragShaderSrc string) (uint32, error) {
-    vertexShader, err := ui.CompileShader()
-
 }
 
 // add an agent
@@ -86,6 +80,14 @@ func main() {
     if err := gl.Init(); err != nil {
         panic(err)
     }
+
+    // Config the vertex and fragment shader
+    program, err := ui.NewProgram(ui.VERTEX_SHADER_SRC, ui.FRAG_SHADER_SRC)
+    if err != nil {
+        panic(err)
+    }
+
+    gl.UseProgram(program)
 
     // setup clear color
     gl.ClearColor(
